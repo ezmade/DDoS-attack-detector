@@ -1,4 +1,3 @@
-import winreg
 import netifaces
 import pickle
 import csv
@@ -9,17 +8,21 @@ import pandas
 from timeit import default_timer as timer
 from sklearn.preprocessing import LabelEncoder
 
-def main():
-    interface = netifaces.interfaces()
-    allowed_IP = ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4']
-    #cap = pyshark.FileCapture('test.pcap') # For training
-    def LoadModel():
-        filename = input('Name of model? >')
-        loaded_model = pickle.load(open(filename, 'rb'))
-        print(loaded_model.coefs_)
-        print(loaded_model.loss_)
+def LabelEncoding(data):
+    return 0
+
+def LoadModel():
+    filename = input('Name of model? >')
+    loaded_model = pickle.load(open(filename, 'rb'))
+    print(loaded_model.coefs_)
+    print(loaded_model.loss_)
         
-        return loaded_model
+    return loaded_model    
+
+def main():
+    #interface = netifaces.interfaces()
+    #allowed_IP = ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4']
+    #cap = pyshark.FileCapture('test.pcap') # For training
             
     def MLP():
         load_data = input('Name of CSV file? >')
@@ -52,10 +55,7 @@ def main():
             elif answer == '2':
                 CSVDataCheck()
             elif answer == '3':
-                network = DrawNN([8, 100, 100, 1])
-                network.draw()
-            elif answer == '4':
-                break;
+                break
                 
 if __name__=='__main__':
     main()
