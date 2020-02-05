@@ -45,7 +45,7 @@ def MLP():
     else:
         from sklearn.neural_network import MLPClassifier
         mlp = MLPClassifier(hidden_layer_sizes=(100, 100), activation='logistic',
-                            max_iter=1000, verbose=True, tol=0.00000001, 
+                            solver='adam', max_iter=50, verbose=True, tol=0.00001, 
                             early_stopping=True, shuffle=True)
 
     data = pandas.read_csv(load_data, delimiter=',')
