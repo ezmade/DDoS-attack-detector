@@ -1,4 +1,3 @@
-import winreg
 import netifaces
 import socket
 import pickle
