@@ -1,5 +1,6 @@
 from tkinter import messagebox, scrolledtext, Label, Button, Tk, INSERT, END
 from tkinter.ttk import Combobox
+from random import randint
 
 isScan = False
 
@@ -17,7 +18,8 @@ def btnStopClicked():
 
 
 def scanning():
-    resultTextField.insert(INSERT, '%s scanning in process: Packages get: %f, Packages sent: %f \n' %(protoList.get(), 12.0, 11.0))
+    for i in range(0, 15):
+        resultTextField.insert(INSERT, '%s port scanning in process: Packages get: %d,\t Packages sent: %d \n' %(protoList.get(), randint(0, 20), randint(0, 20)))
 
 
 win_width = 800
