@@ -1,14 +1,11 @@
-import netifaces
 import socket
 import pickle
 import csv
-import pyshark
 import datetime
 import time
 import pandas
 from timeit import default_timer as timer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
-# Needed to split the data into the training and testing
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 mlp_live_iteration = 0
@@ -171,13 +168,14 @@ def csv_interval_gather(cap):
 
 def int_names(int_guids):  # Looks up the GUID of the network interfaces found in the registry, then converts them into an identifiable format
     int_names = int_names = ['(unknown)' for i in range(len(int_guids))]
-    reg = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
-    reg_key = winreg.OpenKey(
-        reg, r'SYSTEM\CurrentControlSet\Control\Network\{4d36e972-e325-11ce-bfc1-08002be10318}')
+    # reg = winreg.ConnectRegistry(None, winreg.HKEY_LOCAL_MACHINE)
+    # reg_key = winreg.OpenKey(
+        # reg, r'SYSTEM\CurrentControlSet\Control\Network\{4d36e972-e325-11ce-bfc1-08002be10318}')
     for i in range(len(int_guids)):
         try:
-            reg_subkey = winreg.OpenKey(reg_key, int_guids[i] + r'\Connection')
-            int_names[i] = winreg.QueryValueEx(reg_subkey, 'Name')[0]
+            pass
+            # reg_subkey = winreg.OpenKey(reg_key, int_guids[i] + r'\Connection')
+            # int_names[i] = winreg.QueryValueEx(reg_subkey, 'Name')[0]
         except FileNotFoundError:
             pass
     return int_names
@@ -188,23 +186,24 @@ def int_choice():  # allows the user to choose interface
         print(i, value)
     print('\n')
     iface = input("Please select interface: >")
-    cap = pyshark.LiveCapture(interface=iface)
-    cap.sniff_continuously(packet_count=None)
+    # cap = pyshark.LiveCapture(interface=iface)
+    # cap.sniff_continuously(packet_count=None)
 
-    return cap
+    # return cap
+    return 0
 
 
 def LabelEncoding(data):
-    data = pandas.read_csv('TestingData.csv', delimiter=',')
+    data = pandas.read_csv('NewComb2.csv', delimiter=',')
     columnsToEncode = list(data.select_dtypes(include=['category', 'object']))
-    # print(data.dtypes) # Prints each column d_type
-    # print(columnsToEncode) # Prints categorical features
+    print(data.dtypes) # Prints each column d_type
+    print(columnsToEncode) # Prints categorical features
 
     le = LabelEncoder()
     for feature in columnsToEncode:
         try:
             data[feature] = le.fit_transform(data[feature])
-            # print(data[feature])
+            print(data[feature])
         except:
             print('error' + feature)
     return data
@@ -227,10 +226,11 @@ def MLP():
     else:
         from sklearn.neural_network import MLPClassifier
         mlp = MLPClassifier(hidden_layer_sizes=(100, 100), activation='logistic',
-                            solver='adam', max_iter=50, verbose=True, tol=0.00001,
-                            early_stopping=True, shuffle=True)
+                            solver='sgd', max_iter=50, verbose=True,
+                            early_stopping=False, shuffle=True)
 
     data = pandas.read_csv(load_data, delimiter=',')
+    data = data.sample(frac=1).reset_index(drop=True)
     data = LabelEncoding(data)
 
     X = data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
@@ -246,13 +246,13 @@ def MLP():
     # https://issue.life/questions/40758562
     # https://machinelearningmastery.com/feature-selection-machine-learning-python/
 
-    scaler = StandardScaler()
-    scaler.fit(X_train)
-    X_train = scaler.transform(X_train)
-    X_test = scaler.transform(X_test)
+    # scaler = StandardScaler()
+    # scaler.fit(X_train)
+    # X_train = scaler.transform(X_train)
+    # X_test = scaler.transform(X_test)
 
-    print(X_train)  # Training data (fatures)
-    print(X_test)  # Test data (features)
+    # print(X_train)  # Training data (fatures)
+    # print(X_test)  # Test data (features)
 
     start_time = timer()
     mlp.fit(X_train, y_train)  # fit is used to actually train the model
@@ -260,8 +260,8 @@ def MLP():
     end_time = timer()
     time_taken = end_time - start_time
     predictions = mlp.predict(X_test)
-    # print("First 50 Predictions: ", "\n", mlp.predict(X_test)[0:50]) # Prints first 50 predictions
-    # print("First 50 Probabilities: ", "\n", mlp.predict_proba(X_test)[0:50]) # Prints first 50 probabilites
+    print("First 50 Predictions: ", "\n", mlp.predict(X_test)[0:50]) # Prints first 50 predictions
+    print("First 50 Probabilities: ", "\n", mlp.predict_proba(X_test)[0:50]) # Prints first 50 probabilites
     print("Number of iterations: ", mlp.n_iter_, "\n")
     hostile = 0
     safe = 0

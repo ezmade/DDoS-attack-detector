@@ -4,7 +4,7 @@ from random import randint
 
 isScan = False
 
-def btnStartClicked():
+def btnScanClicked():
     if (protoList.get() == defaultProtoList[0]):
         messagebox.showwarning('Warning!', 'Choose protocol to start scanning!')
     else:
@@ -13,7 +13,7 @@ def btnStartClicked():
 
 
 def btnStopClicked():
-    lbl.configure(text='Neural network is waiting to start scanning your system.')
+    lbl.configure(text=lblDefaultText)
     resultTextField.delete(1.0, END)
 
 
@@ -25,12 +25,13 @@ def scanning():
 win_width = 800
 win_height = 600
 defaultProtoList = ('Choose protocol to scan', 'UDP', 'TCP', 'HTTP', 'All')
+lblDefaultText = 'Neural network is waiting to start scanning your system'
 
 
 # Создание и описание элементов экрана
 window = Tk()
-lbl = Label(window, text='Neural network is waiting to start scanning your system', font=('JetBrains Mono',15))
-btnStart = Button(window, text='Start', font=('JetBrains Mono', 14), bg='#3f3f3f', fg='#ffffff', command=btnStartClicked)
+lbl = Label(window, text=lblDefaultText, font=('JetBrains Mono',15))
+btnScan = Button(window, text='Scan', font=('JetBrains Mono', 14), bg='#3f3f3f', fg='#ffffff', command=btnScanClicked)
 btnStop = Button(window, text='Stop', font=('JetBrains Mono', 14), bg='#ff3333', fg='#ffffff', command=btnStopClicked)
 protoList = Combobox(window)
 resultTextField = scrolledtext.ScrolledText(window, width=100, height=35)
@@ -47,7 +48,7 @@ if __name__ == '__main__':
     # TODO Использовать метод place или pack вместо grid
 
     lbl.grid(column=0, row=0)
-    btnStart.grid(column=0, row=2)
+    btnScan.grid(column=0, row=2)
     btnStop.grid(column=1, row=2)
     protoList.grid(column=0, row=1)
     resultTextField.grid(column=0, row=5)
