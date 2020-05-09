@@ -1,7 +1,7 @@
 from tkinter import messagebox, scrolledtext, Label, Button, Tk, INSERT, END
 from tkinter.ttk import Combobox
 from random import randint
-from ddos_detector import *
+import ddos_detector
 
 
 def btn_scan_clicked():
@@ -18,8 +18,9 @@ def btn_stop_clicked():
 
 
 def scanning():
+    predictions = ddos_detector.predict_ddos_attack(proto_list.get(), 'Combined.csv')
     for i in range(0, 15):
-        result_text_field.insert(INSERT, '%s port scanning in process: Packages get: %d,\t Packages sent: %d \n' %(proto_list.get(), randint(0, 20), randint(0, 20)))
+        result_text_field.insert(INSERT, predictions[i]) #(INSERT, f'{proto_list.get()} file scanning in process: Packages get: %d,\t Packages sent: %d \n' %(proto_list.get(), randint(0, 20), randint(0, 20)))
 
 
 WIN_WIDTH = 800
@@ -27,8 +28,8 @@ WIN_HEIGHT = 600
 FONT_NAME = 'Courier New'
 FONT_SIZE = 14
 IS_SCAN = False
-DEFAULT_PROTO_LIST= ('Choose protocol to scan', 'UDP', 'TCP', 'HTTP', 'All')
-LBL_DEFAULT_TEXT = 'Neural network is waiting to start scanning your system'
+DEFAULT_PROTO_LIST= ('Choose model', 'MyModel_sgd_logistic_50iter.sav', 'MyModel_adam_50iter_1e-5tol.sav')
+LBL_DEFAULT_TEXT = 'Neural network is waiting to start scanning'
 
 
 # Создание и описание элементов экрана
