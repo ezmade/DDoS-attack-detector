@@ -34,8 +34,12 @@ def predict_ddos_attack(modelname, filename):
     data = read_csv(f'Data/{filename}', delimiter=',')
     data = label_encoding(data)
 
-    features = data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
-              'Dest Port', 'Packet Length', 'Packets/Time']]
+    try:
+        features = data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
+                        'Dest Port', 'Packet Length', 'Packets/Time']]
+    except:
+        print('BAD')
+        return 0
     
     predictions = model.predict(features)
 
