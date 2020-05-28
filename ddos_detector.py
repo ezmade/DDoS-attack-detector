@@ -4,6 +4,7 @@ from timeit import default_timer as timer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
+from numpy import reshape
 
 
 def label_encoding(data):
@@ -29,18 +30,17 @@ def load_model(filename):
     return loaded_model
 
 
-def predict_ddos_attack(modelname, filename):
-    model = load_model(modelname)
-    data = read_csv(f'Data/{filename}', delimiter=',')
-    data = label_encoding(data)
+def predict_ddos_attack(model, data):
+    #data = read_csv(f'Data/{filename}', delimiter=',')
+    #data = label_encoding(data)
 
     try:
         features = data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
                         'Dest Port', 'Packet Length', 'Packets/Time']]
     except:
-        print('BAD')
-        return 0
-    
-    predictions = model.predict(features)
+        print('Incorrect columns of dataset')
+        return -1
 
-    return predictions
+    prediction = model.predict(features.values.reshape(1, -1))
+
+    return prediction

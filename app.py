@@ -1,8 +1,8 @@
 import ddos_detector
 from app_components import *
 import time
+from pandas import read_csv
 
-SCAN = False
 
 def btn_scan_clicked(key):
     if (model_list.get() == DEFAULT_MODEL_LIST[0]) and (file_list.get() == DEFAULT_FILE_LIST[0]):
@@ -11,29 +11,30 @@ def btn_scan_clicked(key):
         messagebox.showwarning('Warning!', 'Choose model to start scanning!')
     elif (file_list.get() == DEFAULT_FILE_LIST[0]):
         messagebox.showwarning('Warning!', 'Choose file to start scanning!')
-    elif SCAN:
-        messagebox.showwarning('Warning!', 'Scanning is in process!')
     else:
-        lbl.configure(text='Scanning has been started.')
-        time.sleep(10)
-        scanning(15)
+        try:
+            numbers_of_count = int(records_count.get())
+            scanning(numbers_of_count)
+        except:
+            messagebox.showwarning('Warning!', "Incorrect value of records' number!")
 
 
 def btn_clear_clicked(key):
     result_text_field.delete(1.0, END)
 
 
-def scanning(records_count):
-    SCAN = True
-    predictions = ddos_detector.predict_ddos_attack(model_list.get(), file_list.get())
-    if predictions:
-        for i in range(0, records_count):
-            result_text_field.insert(INSERT, predictions[records_count])
-    else:
-        result_text_field.insert(INSERT, "Something goes wrong! Check your dataset!")
-
-    SCAN = False
-    # lbl.configure(text=LBL_DEFAULT_TEXT)
+def scanning(number_of_records):
+    model = ddos_detector.load_model(model_list.get())
+    data = read_csv(f'Data/{file_list.get()}', delimiter=',')
+    data = ddos_detector.label_encoding(data)
+    if number_of_records > 10000 or number_of_records == 0:
+        number_of_records = 10000
+    for record in range (0, number_of_records):
+        prediction = ddos_detector.predict_ddos_attack(model, data.iloc[record])
+        if prediction != -1:
+            result_text_field.insert(INSERT, f'{data.iloc[record][:7]} \nAttack Status: {prediction} \n \n')
+        else:
+            result_text_field.insert(INSERT, "Something goes wrong! Check your dataset!\n")
 
 
 if __name__ == '__main__':
@@ -49,14 +50,16 @@ if __name__ == '__main__':
     file_list['values'] = DEFAULT_FILE_LIST
     file_list.current(0)
 
-    # Сетка отображения элементов на экране
-    # TODO Использовать метод place или pack вместо grid
+    records_count.insert(0, 15)
 
-    lbl.grid(column=0, row=0)
-    btn_scan.grid(column=0, row=3)
-    btn_clear.grid(column=0, row=5)
+
+    lbl.grid(columnspan=4, row=0)
+    btn_scan.grid(column=2, row=4)
+    btn_clear.grid(column=3, row=4)
     model_list.grid(column=0, row=1)
-    file_list.grid(column=0, row=2)
-    result_text_field.grid(column=0, row=7)
+    file_list.grid(column=1, row=1)
+    records_count.grid(column=3, row=1)
+    lbl_records_count.grid(column=2, row=1)
+    result_text_field.grid(columnspan=4, row=8)
 
     window.mainloop()
