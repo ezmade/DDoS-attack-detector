@@ -1,9 +1,6 @@
 from pandas import read_csv
 from pickle import load, dump
-from timeit import default_timer as timer
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.preprocessing import LabelEncoder
 from numpy import reshape
 
 

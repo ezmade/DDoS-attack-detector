@@ -1,6 +1,5 @@
 import ddos_detector
 from app_components import *
-import time
 from pandas import read_csv
 
 
@@ -25,14 +24,15 @@ def btn_clear_clicked(key):
 
 def scanning(number_of_records):
     model = ddos_detector.load_model(model_list.get())
-    data = read_csv(f'Data/{file_list.get()}', delimiter=',')
+    data = read_csv(f'Data/{file_list.get()}')
+    dataset = data.iloc[:,:7]
     data = ddos_detector.label_encoding(data)
     if number_of_records > 10000 or number_of_records == 0:
         number_of_records = 10000
     for record in range (0, number_of_records):
         prediction = ddos_detector.predict_ddos_attack(model, data.iloc[record])
         if prediction != -1:
-            result_text_field.insert(INSERT, f'{data.iloc[record][:7]} \nAttack Status: {prediction} \n \n')
+            result_text_field.insert(INSERT, f'{dataset.iloc[record]} \nAttack Status: {prediction} \n \n')
         else:
             result_text_field.insert(INSERT, "Something goes wrong! Check your dataset!\n")
 
