@@ -35,10 +35,10 @@ def MLP():
     
     from sklearn.neural_network import MLPClassifier
     mlp = MLPClassifier(hidden_layer_sizes=(100, 100), activation='logistic',
-                        solver='sgd', max_iter=50, verbose=True,
+                        solver='adam', max_iter=50, verbose=True,
                         early_stopping=False, shuffle=True)
 
-    data = read_csv(load_data, delimiter=',')
+    data = read_csv(f'Data/{load_data}', delimiter=',')
     data = data.sample(frac=1).reset_index(drop=True)
     data = LabelEncoding(data)
 
