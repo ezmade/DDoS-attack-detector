@@ -17,7 +17,7 @@ def LabelEncoding(data):
             data[feature] = le.fit_transform(data[feature])
             print(data[feature])
         except:
-            print('error' + feature)
+            print('error ' + feature)
     return data
 
 
