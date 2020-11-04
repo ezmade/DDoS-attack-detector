@@ -23,8 +23,8 @@ def btn_clear_clicked(key):
 
 
 def scanning(number_of_records):
-    model = ddos_detector.load_model(model_list.get())
-    data = read_csv(f'Data/{file_list.get()}')
+    model = ddos_detector.load_model(f'DDoS-attack-detector\Model\{model_list.get()}')
+    data = read_csv(f'DDoS-attack-detector\Data\{file_list.get()}')
     dataset = data.iloc[:,:8]
     data = ddos_detector.label_encoding(data)
     if number_of_records > 10000 or number_of_records == 0:

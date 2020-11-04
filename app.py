@@ -1,4 +1,7 @@
+import os
 from flask import Flask, render_template, request
+
+from ddos_detector import predict_ddos_attack
 app = Flask(__name__)
 
 @app.route('/')
@@ -16,11 +19,20 @@ def about():
 
 @app.route('/learning')
 def learning():
-    return "The learning page"
+    return render_template('learning.html')
 
 @app.route('/classification')
 def classification():
-    return "The classification page"
+    return render_template('classification.html')
+
+@app.route('/classificate-data', methods=['POST'])
+def classificate_data():
+    file = request.files.get('file')
+    try:
+        prediction = predict_ddos_attack('DDoS-attack-detector\Model\AdamClassifier.sav', file)
+        return str(prediction), 200
+    except:
+        return '',400
 
 if __name__ == '__main__':
     app.run(debug=True)

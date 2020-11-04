@@ -19,8 +19,8 @@ def label_encoding(data):
     return data
 
 
-def load_model(filename):
-    loaded_model = load(open(f'Model/{filename}', 'rb'))
+def load_model(path):
+    loaded_model = load(open(path, 'rb'))
     print(loaded_model.coefs_)
     print(loaded_model.loss_)
 
@@ -28,16 +28,24 @@ def load_model(filename):
 
 
 def predict_ddos_attack(model, data):
-    #data = read_csv(f'Data/{filename}', delimiter=',')
-    #data = label_encoding(data)
 
     try:
+        print('good')
         features = data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
                         'Dest Port', 'Packet Length', 'Packets/Time']]
+        print(features)
     except:
         print('Incorrect columns of dataset')
         return -1
-
-    prediction = model.predict(features.values.reshape(1, -1))
-
+    print('good2')
+    prediction = model.predict(features)
+    print('good3')
     return prediction
+
+def main():
+    model = load_model('DDoS-attack-detector\\Model\\Model.sav')
+    data = read_csv('DDoS-attack-detector\\Data\\TestingData.csv')
+    print(predict_ddos_attack(model, data))
+
+if __name__=='__main__':
+    main()

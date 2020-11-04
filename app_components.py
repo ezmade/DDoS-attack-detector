@@ -17,8 +17,8 @@ WIN_WIDTH = 680
 WIN_HEIGHT = 620
 FONT_NAME = 'Courier New'
 FONT_SIZE = 14
-DEFAULT_MODEL_LIST = get_files_from_root('Model', '.sav')
-DEFAULT_FILE_LIST = get_files_from_root('Data', '.csv')
+DEFAULT_MODEL_LIST = get_files_from_root('DDoS-attack-detector\Model', '.sav')
+DEFAULT_FILE_LIST = get_files_from_root('DDoS-attack-detector\Data', '.csv')
 LBL_DEFAULT_TEXT = 'Choose file and model and press "Scan"'
 
 

@@ -34,11 +34,11 @@ def MLP():
     load_data = input('Name of CSV file? >')
     
     from sklearn.neural_network import MLPClassifier
-    mlp = MLPClassifier(hidden_layer_sizes=(100, 100), activation='logistic',
-                        solver='adam', max_iter=50, verbose=True,
+    mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation='logistic',
+                        solver='adam', max_iter=5, verbose=True,
                         early_stopping=False, shuffle=True)
 
-    data = read_csv(f'Data/{load_data}', delimiter=',')
+    data = read_csv(f'DDoS-attack-detector\Data\{load_data}', delimiter=',')
     data = data.sample(frac=1).reset_index(drop=True)
     data = LabelEncoding(data)
 
