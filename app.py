@@ -18,5 +18,9 @@ def about():
 def learning():
     return "The learning page"
 
+@app.route('/classification')
+def classification():
+    return "The classification page"
+
 if __name__ == '__main__':
     app.run(debug=True)
