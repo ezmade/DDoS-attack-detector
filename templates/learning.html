@@ -1,29 +1,21 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Обучение</title>
-    <link rel="stylesheet" href="static/css/style.css">
-    <style>
-        source
-        {
-            height: 500px;
-            width: 500px;
-            border: 5px solid #000;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучение модели</title>
 </head>
 <body>
-
-<section id="download">
-    <p>Выберите файл с данными в формате CSV</p>
-
-    <input type="file" id="file">
-    <br>
-    <button id="send">Загрузить</button>
-    <br>
-</section>
-
-<script src="/static/js/script.js"></script>
+    <h2>Обучение модели</h2>
+    <form action="" method="post">
+        <p>
+	        <label for="username">Выбери модель</label>
+	    </p>
+    </form>
+    <select name="model" method="GET" action="/">
+        {% for model in models %}
+            <option value="{{model}}" selected>{{model}}</option>
+        {% endfor %}
+    </select>
 </body>
 </html>
