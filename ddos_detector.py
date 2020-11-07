@@ -13,7 +13,6 @@ def label_encoding(data):
     for feature in columns_to_encode:
         try:
             data[feature] = le.fit_transform(data[feature])
-            print(data[feature])
         except:
             print('error' + feature)
     return data
@@ -32,14 +31,11 @@ def predict_ddos_attack(model_path, file):
     data = read_csv(file)
     enconded_data = label_encoding(data)
     try:
-        print('good')
         features = enconded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
                         'Dest Port', 'Packet Length', 'Packets/Time']]
-        print(features)
     except:
         print('Incorrect columns of dataset')
         return -1
-    print('good2')
+    
     prediction = model.predict(features)
-    print('good3')
     return prediction

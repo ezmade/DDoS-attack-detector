@@ -20,19 +20,21 @@ def about():
 
 @app.route('/learning', methods=['GET'])
 def learning():
-    models = get_files_from_root('ddos-attack-detector\\Model', '.sav')
-    message = 'Выбери модель'
-    return render_template('learning.html', models=models, message=message)
+    models = get_files_from_root('ddos-attack-detector\\models', '.sav')
+    return render_template('learning.html', models=models)
 
 @app.route('/classification')
 def classification():
-    return render_template('classification.html')
+    models = get_files_from_root('ddos-attack-detector\\models', '.sav')
+    return render_template('classification.html', models=models)
 
 @app.route('/classificate-data', methods=['POST'])
 def classificate_data():
     file = request.files.get('file')
+    model = request.values.get('modelname')
     try:
-        prediction = predict_ddos_attack('ddos-attack-detector\\Model\\AdamClassifier.sav', file)
+        prediction = predict_ddos_attack(f'ddos-attack-detector\\models\\{model}', file)
+        print(str(prediction[0]))
         return str(prediction[0]), 200
     except:
         return '',400

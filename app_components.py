@@ -6,10 +6,6 @@ from os import listdir
 def get_files_from_root(folder_name, file_extension):
     files = listdir(folder_name)
     files = list(filter(lambda x: x.endswith(file_extension), files))
-    if file_extension=='.sav':
-        files.insert(0, 'Choose model')
-    elif file_extension=='.csv':
-        files.insert(0, 'Choose file')
     return files
 
 
@@ -17,8 +13,8 @@ WIN_WIDTH = 680
 WIN_HEIGHT = 620
 FONT_NAME = 'Courier New'
 FONT_SIZE = 14
-DEFAULT_MODEL_LIST = get_files_from_root('DDoS-attack-detector\Model', '.sav')
-DEFAULT_FILE_LIST = get_files_from_root('DDoS-attack-detector\Data', '.csv')
+DEFAULT_MODEL_LIST = get_files_from_root('DDoS-attack-detector\\models', '.sav')
+DEFAULT_FILE_LIST = get_files_from_root('DDoS-attack-detector\\data', '.csv')
 LBL_DEFAULT_TEXT = 'Choose file and model and press "Scan"'
 
 

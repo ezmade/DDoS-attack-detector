@@ -4,26 +4,22 @@
     <meta charset="UTF-8">
     <title>Классификация данных</title>
     <link rel="stylesheet" href="static/css/style.css">
-    <style>
-        source
-        {
-            height: 500px;
-            width: 500px;
-            border: 5px solid #000;
-        }
-    </style>
+    <link rel="shortcut icon" href="static/favicon.ico">
 </head>
 <body>
+    <a class="link" href="/">На главную</a>
+    <section>
+        <h3>Выберите модель</h3>
+        <select id="model" name="model" method="GET" action="/">
+            {% for model in models %}
+                <option value="{{model}}" selected>{{model}}</option>
+            {% endfor %}
+        </select>
+        <h3>Выберите файл с данными в формате CSV</h3>
+        <input type="file" id="file">
+        <button id="startClassification">Загрузить</button>
+    </section>
 
-<section id="download">
-    <p>Выберите файл с данными в формате CSV</p>
-
-    <input type="file" id="file">
-    <br>
-    <button id="send">Загрузить</button>
-    <br>
-</section>
-
-<script src="/static/js/classification.js"></script>
+    <script src="/static/js/classification.js"></script>
 </body>
 </html>

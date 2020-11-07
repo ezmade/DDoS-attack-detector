@@ -4,18 +4,11 @@ from pandas import read_csv
 
 
 def btn_scan_clicked(key):
-    if (model_list.get() == DEFAULT_MODEL_LIST[0]) and (file_list.get() == DEFAULT_FILE_LIST[0]):
-        messagebox.showwarning('Warning!', 'Choose model and file to start scanning!')
-    elif (model_list.get() == DEFAULT_MODEL_LIST[0]):
-        messagebox.showwarning('Warning!', 'Choose model to start scanning!')
-    elif (file_list.get() == DEFAULT_FILE_LIST[0]):
-        messagebox.showwarning('Warning!', 'Choose file to start scanning!')
-    else:
-        try:
-            numbers_of_count = int(records_count.get())
-            scanning(numbers_of_count)
-        except:
-            messagebox.showwarning('Warning!', "Incorrect value of records' number!")
+    try:
+        numbers_of_count = int(records_count.get())
+        scanning(numbers_of_count)
+    except:
+        messagebox.showwarning('Warning!', "Incorrect value of records' number!")
 
 
 def btn_clear_clicked(key):
@@ -23,18 +16,16 @@ def btn_clear_clicked(key):
 
 
 def scanning(number_of_records):
-    model = ddos_detector.load_model(f'DDoS-attack-detector\Model\{model_list.get()}')
-    data = read_csv(f'DDoS-attack-detector\Data\{file_list.get()}')
-    dataset = data.iloc[:,:8]
-    data = ddos_detector.label_encoding(data)
-    if number_of_records > 10000 or number_of_records == 0:
-        number_of_records = 10000
-    for record in range (0, number_of_records):
-        prediction = ddos_detector.predict_ddos_attack(model, data.iloc[record])
-        if prediction != -1:
-            result_text_field.insert(INSERT, f'{dataset.iloc[record]} \nAttack Status: {prediction} \n \n')
-        else:
-            result_text_field.insert(INSERT, "Something goes wrong! Check your dataset!\n")
+    model = f'ddos-attack-detector\\models\\{model_list.get()}'
+    data = f'ddos-attack-detector\\data\\{file_list.get()}'
+    # if number_of_records > 10000 or number_of_records == 0:
+    #     number_of_records = 10000
+    # for record in range (0, number_of_records):
+    prediction = ddos_detector.predict_ddos_attack(model, data)
+    if prediction != -1:
+        result_text_field.insert(INSERT, 'Attack Status: {prediction} \n')
+    else:
+        result_text_field.insert(INSERT, "Something goes wrong! Check your dataset!\n")
 
 
 if __name__ == '__main__':
