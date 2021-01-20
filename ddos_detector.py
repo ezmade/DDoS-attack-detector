@@ -6,9 +6,6 @@ from numpy import reshape
 
 def label_encoding(data):
     columns_to_encode = list(data.select_dtypes(include=['category', 'object']))
-    # print(data.dtypes) # Prints each column d_type
-    # print(columns_to_encode) # Prints categorical features
-
     le = LabelEncoder()
     for feature in columns_to_encode:
         try:
@@ -19,9 +16,8 @@ def label_encoding(data):
 
 
 def load_model(path):
-    loaded_model = load(open(path, 'rb'))
-    # print(loaded_model.coefs_)
-    # print(loaded_model.loss_)
+    with open('path', 'rb') as f:
+        loaded_model = load(f)
 
     return loaded_model
 

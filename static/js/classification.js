@@ -2,8 +2,8 @@ document.getElementById('startClassification').onclick = startClassification
 
 async function startClassification()
 {
-    let filename = document.getElementById('file');
-    let modellist = document.getElementById('model');
+    let filename = document.getElementById('input_file');
+    let modellist = document.getElementById('classification_model');
 
     if (!filename.value)
     {

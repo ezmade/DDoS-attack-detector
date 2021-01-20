@@ -16,11 +16,8 @@ def btn_clear_clicked(key):
 
 
 def scanning(number_of_records):
-    model = f'ddos-attack-detector\\models\\{model_list.get()}'
-    data = f'ddos-attack-detector\\data\\{file_list.get()}'
-    # if number_of_records > 10000 or number_of_records == 0:
-    #     number_of_records = 10000
-    # for record in range (0, number_of_records):
+    model = f'./models/{model_list.get()}'
+    data = f'./data/{file_list.get()}'
     prediction = ddos_detector.predict_ddos_attack(model, data)
     if prediction != -1:
         result_text_field.insert(INSERT, 'Attack Status: {prediction} \n')

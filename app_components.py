@@ -13,12 +13,11 @@ WIN_WIDTH = 680
 WIN_HEIGHT = 620
 FONT_NAME = 'Courier New'
 FONT_SIZE = 14
-DEFAULT_MODEL_LIST = get_files_from_root('DDoS-attack-detector\\models', '.sav')
-DEFAULT_FILE_LIST = get_files_from_root('DDoS-attack-detector\\data', '.csv')
+DEFAULT_MODEL_LIST = get_files_from_root('./models', '.sav')
+DEFAULT_FILE_LIST = get_files_from_root('./data', '.csv')
 LBL_DEFAULT_TEXT = 'Choose file and model and press "Scan"'
 
 
-# Создание и описание элементов экрана
 window = Tk()
 lbl = Label(window, text=LBL_DEFAULT_TEXT, font=(FONT_NAME,FONT_SIZE))
 lbl_records_count = Label(window, text='Number of records:', font=(FONT_NAME, FONT_SIZE))
