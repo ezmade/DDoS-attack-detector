@@ -8,29 +8,21 @@
 </head>
 <body>
     <a class="link" href="/">На главную</a>
-    <form action="/classificate-data" method="POST" class="form">
-        {{ form.classification_model.label() }} 
-        <br> 
-        {{ form.classification_model() }}
-        <br>
-        <br>
-        {{ form.input_file.label() }} 
-        <br>
-        {{ form.input_file() }}
-        <br>
-        <br>
-        {{ form.submit_button() }}
-    </form>
     <section>
         <h3>Выберите модель</h3>
-        <select id="model" name="model" method="GET" action="/">
+        <select id="classification_model" name="model" method="GET" action="/">
             {% for model in models %}
                 <option value="{{model}}" selected>{{model}}</option>
             {% endfor %}
         </select>
         <h3>Выберите файл с данными в формате CSV</h3>
-        <input type="file" id="file">
-        <button id="startClassification">Загрузить</button>
+        <input type="file" id="input_file">
+        <button id="start_classification">Загрузить</button>
+        {% if prediction %}
+            <p>Prediction: #{{ prediction }}!</p>
+        {% else %}
+            <p>Here should be a prediction</p>
+        {% endif %}
     </section>
 
     <script src="/static/js/classification.js"></script>

@@ -16,15 +16,21 @@ def label_encoding(data):
 
 
 def load_model(path):
-    with open('path', 'rb') as f:
-        loaded_model = load(f)
-
+    with open(path, "rb") as f:
+        print("opened", f)
+        try:
+            loaded_model = load(f)
+        except:
+            print('TROUBLE')
     return loaded_model
 
 
 def predict_ddos_attack(model_path, file):
+    print('ok')
     model = load_model(model_path)
+    print('Model is loaded')
     data = read_csv(file)
+    print('Data is loaded')
     enconded_data = label_encoding(data)
     try:
         features = enconded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',

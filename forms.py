@@ -17,7 +17,3 @@ class ClassificationForm(FlaskForm):
         label='Загрузить'
     )
 
-async def create(self, request):
-    payload = await request.post()
-    form = ClassificationForm(payload)
-    # TODO: Check validation

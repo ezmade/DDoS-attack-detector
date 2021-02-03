@@ -1,6 +1,6 @@
-document.getElementById('startClassification').onclick = startClassification
+document.getElementById('start_classification').onclick = start_classification
 
-async function startClassification()
+async function start_classification()
 {
     let filename = document.getElementById('input_file');
     let modellist = document.getElementById('classification_model');
@@ -17,7 +17,7 @@ async function startClassification()
     formData.append('file', file);
     formData.append('modelname', modelname);
 
-    let response = await fetch('classificate-data',{
+    let response = await fetch('classification',{
         method: 'POST',
         body: formData
         }
