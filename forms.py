@@ -1,19 +1,17 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, FileField, SubmitField
+from wtforms import SelectField, SubmitField, Label, FileField
 from wtforms.validators import DataRequired
 
 class ClassificationForm(FlaskForm):
+    
+    input_file = FileField(
+        label="Выберите файл",
+        validators=[DataRequired('Выберите файл')]
+    )
 
     classification_model = SelectField(
-        label='Выберите модель для классификации'
+        label='Выберите модель'
     )
 
-    input_file = FileField(
-        label='Выберите файл для классификации', 
-        validators=[DataRequired('Необходимо выбрать файл')]
-    )
-
-    submit_button = SubmitField(
-        label='Загрузить'
-    )
+    result = Label(field_id=1, text="Результат: ")
 

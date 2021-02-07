@@ -17,7 +17,7 @@ async function start_classification()
     formData.append('file', file);
     formData.append('modelname', modelname);
 
-    let response = await fetch('classification',{
+    let response = await fetch('/predict',{
         method: 'POST',
         body: formData
         }
