@@ -41,7 +41,10 @@ def classification():
         modelname = form.classification_model.data
         try:
             prediction = predict_ddos_attack(f'models/{modelname}', input_file)
-            form.result.text = f'Результат: {prediction[0]}'
+            if prediction[0]==0:
+                form.result.text = f'Результат: OK'
+            else:
+                form.result.text = f'Результат: Bad traffic'
         except:
             return 'Something goes wrong! Try again', 400
     return render_template('classification.html', form=form)

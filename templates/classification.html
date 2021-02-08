@@ -11,8 +11,11 @@
     <form action="" method="POST" class="form-classification">
         {{ form.csrf_token }}
         {{ form.classification_model.label() }} {{ form.classification_model() }}
+        <br>
         {{ form.input_file.label() }} {{ form.input_file() }}
+        <br>
         <button type="submit">Загрузить</button>
+        <br><br>
         {{ form.result() }}
     </form>
 </body>

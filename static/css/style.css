@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: larger;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+}
+
+.nav_var {
+    text-align: end;
+}
+
+.logo_copyright {
+    font-weight: lighter;
+    font-size: xx-small;
+}
