@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, SubmitField, Label, FileField
+from wtforms import SelectField, FileField
 from wtforms.validators import DataRequired
 
 class ClassificationForm(FlaskForm):
@@ -13,5 +13,7 @@ class ClassificationForm(FlaskForm):
         label='Выберите модель'
     )
 
-    result = Label(field_id=1, text="Результат: ")
 
+class LearningForm(FlaskForm):
+
+    pass 
