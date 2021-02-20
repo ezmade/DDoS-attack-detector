@@ -16,10 +16,32 @@
         <br>
         <button type="submit">Загрузить
         </button>
-        <br><br>
-        {% for i in info %}
-            <p>{{i}}</p>
-        {% endfor %}
+        <br>
+        <table class="classification_table">
+            <caption>Результат классификации</caption>
+            <tr class="predict_head">
+                <th>№</th>
+                <th>Source IP</th>
+                <th>Dest IP</th>
+                <th>Source Port</th>
+                <th>Dest Port</th>
+                <th>Result</th>
+            </tr>
+            {% for i in range(0, length) %}
+                <tr class="predict">
+                    <td>{{i+1}}</td>
+                    <td>{{data[['Source IP']].iloc[i].values[0]}}</td>
+                    <td>{{data[['Dest IP']].iloc[i].values[0]}}</td>
+                    <td>{{data[['Source Port']].iloc[i].values[0]}}</td>
+                    <td>{{data[['Dest Port']].iloc[i].values[0]}}</td>
+                    {% if predictions[i] == 1 %}
+                        <td style="color: red;">Bad traffic</td>
+                    {% else %}
+                        <td style="color: green;">Okay</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
     </form>
 </body>
 </html>

@@ -36,4 +36,4 @@ def predict_ddos_attack(model_path, file):
         return -1
     
     prediction = model.predict(features)
-    return prediction
+    return data, prediction

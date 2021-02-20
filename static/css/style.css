@@ -15,6 +15,9 @@ body {
     font-size: larger;
 }
 
+
+/* Main Page */
+
 nav {
     display: grid;
     grid-template-columns: 1fr 5fr;
@@ -32,4 +35,31 @@ nav {
 .logo_copyright {
     font-weight: lighter;
     font-size: xx-small;
+}
+
+
+
+
+/* Classification Page */
+
+.classification_table {
+    border-collapse: collapse;
+    margin: .5rem;
+}
+
+td, th{
+    padding: .5rem 1rem;
+    border: 1px solid black;
+}
+
+.predict_head th{
+    font-weight: normal;
+    font-size: large;
+    text-align: center;
+}
+
+.predict {
+    font-weight: 100;
+    font-size: medium;
+    text-align: center;
 }
