@@ -1,8 +1,9 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from ddos_detector import predict_ddos_attack
+from model_fitting import  ACTIVATIONS, SOLVERS, MLP
 from app_components import get_files_from_root
-from forms import ClassificationForm
+from forms import ClassificationForm, LearningForm
 
 app = Flask(__name__)
 SECRET_KEY = os.urandom(32)
@@ -25,10 +26,33 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/learning', methods=['GET'])
+@app.route('/learning', methods=['GET', 'POST'])
 def learning():
-    models = get_files_from_root('./models', '.sav')
-    return render_template('learning.html', models=models)
+    form = LearningForm()
+    form.activations.choices = ACTIVATIONS
+    form.solvers.choices = SOLVERS
+    success = False
+    if form.validate_on_submit():
+        activation = form.activations.data
+        solver = form.solvers.data
+        if form.max_iters.data:
+            max_iter = form.max_iters.data
+        else:
+            max_iter = 5
+        if form.sizes.data:
+            sizes = (int(form.sizes.data), int(form.sizes.data))
+        else:
+            sizes = (10, 10)
+        try:
+            MLP(sizes, activation, solver, max_iter)
+            success = True
+        except:
+            return 'Something goes wrong! Try again', 400
+    return render_template(
+        'learning.html', 
+        form=form,
+        success=success
+        )
 
 
 @app.route('/classification', methods=['GET', 'POST'])
@@ -53,7 +77,7 @@ def classification():
         data = data,
         predictions = predictions, 
         length = length
-    )
+        )
 
 
 if __name__ == '__main__':

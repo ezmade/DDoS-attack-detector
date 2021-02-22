@@ -10,17 +10,21 @@
 <body>
     <a class="link" href="/">На главную</a>
     <h2>Обучение модели</h2>
-    <form action="" method="post">
-        <p>
-	        <label for="username">Выберите модель</label>
-	    </p>
+    <form action="" method="POST" class="form-learning">
+        {{ form.csrf_token }}
+        {{ form.activations.label() }} {{ form.activations() }}
+        {{ form.solvers.label() }} {{ form.solvers() }}
+        {{ form.max_iters.label() }} {{ form.max_iters() }}
+        {{ form.sizes.label() }} {{ form.sizes() }}
+        <br>
+        <button type="submit">Обучить</button>
+        <br>
+        {% if success %}
+            <p style="color: green;">Success</p>
+        {% else %}
+            <p style="color: red;">Failure</p>
+        {% endif %}
     </form>
-    <select id="model" name="model" method="GET" action="/">
-        {% for model in models %}
-            <option value="{{model}}" selected>{{model}}</option>
-        {% endfor %}
-    </select>
-    <button id="setModelname">Загрузить</button>
     <script src="/static/js/learning.js"></script>
 </body>
 </html>
