@@ -37,7 +37,7 @@ def MLP(sizes, activation, solver, max_iter):
                         solver=solver, max_iter=max_iter, verbose=True,
                         early_stopping=False, shuffle=True)
 
-    data = read_csv(f'Data/{load_data}', delimiter=',')
+    data = read_csv(f'data/{load_data}', delimiter=',')
     data = data.sample(frac=1).reset_index(drop=True)
     encoded_data = label_encoding(data)
 

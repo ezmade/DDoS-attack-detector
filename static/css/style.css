@@ -7,37 +7,118 @@
 
 a {
     text-decoration: none;
+    color: #fff;
 }
 
 body {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
-    font-size: larger;
+    font-size: large;
 }
+
 
 
 /* Main Page */
 
-nav {
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-}
 
-.logo {
-    width: 60px;
-    height: auto;
-}
+    /* Components */
+    .logo {
+        margin-top: -.5rem;
+        width: 50px;
+        height: 50px;
+        background: #C4C4C4;
+        border-radius: 50px;
+    }
 
-.nav_var {
-    text-align: end;
-}
+    .title {
+        font-size: 1.8rem;
+    }
 
-.logo_copyright {
-    font-weight: lighter;
-    font-size: xx-small;
-}
+    .description {
+        font-size: 1.3rem;
+        color:rgba(0, 0, 0, 0.85)
+    }
+
+    .link {
+        color:rgba(255, 255, 255, 1);
+        transition: ease-in 250ms;
+    }
+
+    .link:hover {
+        color:rgba(255, 89, 60, 0.85)
+    }
+
+    .round-button {
+        color: rgba(255, 255, 255, 0.85);
+        position: absolute;
+        width: 10rem;
+        left: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        border-radius: 50px;
+        margin-top: 2rem;
+        margin-left: -5rem;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        transition: ease-in 250ms;
+    }
+
+    .round-button:hover {
+        color:rgba(255, 89, 60, 0.85);
+        border: 2px solid rgba(255, 89, 60, 0.85);
+    }
 
 
+    /* Elements */
+
+    header {
+        height: 100vh;
+        background: url(/static/img/background.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    nav {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        padding-top: 2rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+
+    .nav_bar {
+        text-align: end;
+    }
+
+    .nav_bar a {
+        padding: .7rem;
+    }
+
+    .welcome-description {
+        width: 50rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -5rem;
+        margin-left: -25rem;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        text-align: center;
+    }
+
+    .welcome-text p{
+        color: #fff;
+        padding-top: .7rem;
+    }
+
+    .about-section {
+        text-align: center;
+    }
+
+    .logo_copyright {
+        font-weight: lighter;
+        font-size: xx-small;
+    }
+    
 
 
 /* Classification Page */
