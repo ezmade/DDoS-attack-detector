@@ -38,12 +38,12 @@ body {
     }
 
     .description {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         color:rgba(255, 255, 255, 0.85)
     }
 
     .small-description {
-        font-size: 1rem;
+        font-size: 1.2rem;
         color:rgba(255, 255, 255, 0.75)
     }
 
@@ -68,7 +68,7 @@ body {
         margin-left: -5rem;
         padding-top: .5rem;
         padding-bottom: .5rem;
-        transition: ease-in 250ms;
+        transition: ease-out 250ms;
     }
 
     .round-button:hover {
@@ -142,7 +142,6 @@ body {
         }
 
         .about-section .description {
-            font-size: 1.2rem;
             margin-top: 1rem;
             color:rgba(0, 0, 0, 0.85);
         }
@@ -215,25 +214,26 @@ body {
             background-position: center;
         }
 
-        .model-section .desc-text {
-            margin-left: 15rem;
+        .model-description {
+            margin-left: -26rem;
             width: 40rem;
             position: relative;
             top: 30%;
+            left: 50%;
         }
 
-        .model-section .desc-text .title {
+        .model-description .desc-text .title {
             color:#fff;
         }
 
-        .model-section .desc-text p {
+        .model-description .desc-text p {
             padding-top: 1rem;
         }
 
-        .model-section .round-button {
+        .model-description .round-button {
+            margin-top: 2rem;
             left: 0%;
-            margin-left: 15rem;
-            margin-top: 14rem;
+            margin-left: 0rem;
         }
 
 
