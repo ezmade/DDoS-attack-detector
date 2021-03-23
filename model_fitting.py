@@ -31,7 +31,7 @@ def load_model():
 
 
 def MLP(sizes, activation, solver, max_iter):
-    load_data = "Data.csv"
+    load_data = "NewComb2.csv"
     from sklearn.neural_network import MLPClassifier
     mlp = MLPClassifier(hidden_layer_sizes=sizes, activation=activation,
                         solver=solver, max_iter=max_iter, verbose=True,
@@ -67,8 +67,8 @@ def MLP(sizes, activation, solver, max_iter):
     end_time = timer()
     time_taken = end_time - start_time
     predictions = mlp.predict(X_test)
-    print("First 50 Predictions: ", "\n", mlp.predict(X_test)[0:50]) # Prints first 50 predictions
-    print("First 50 Probabilities: ", "\n", mlp.predict_proba(X_test)[0:50]) # Prints first 50 probabilites
+    # print("First 50 Predictions: ", "\n", mlp.predict(X_test)[0:50]) # Prints first 50 predictions
+    # print("First 50 Probabilities: ", "\n", mlp.predict_proba(X_test)[0:50]) # Prints first 50 probabilites
     print("Number of iterations: ", mlp.n_iter_, "\n")
     hostile = 0
     safe = 0

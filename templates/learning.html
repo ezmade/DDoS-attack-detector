@@ -21,6 +21,9 @@
         <br>
         {% if success %}
             <p style="color: green;">Success</p>
+            <p>Accuracy: {{ accuracy }}</p>
+            <p>Precision: {{ precision }}</p>
+            <p>F1 Score: {{ f1score }}</p>
         {% else %}
             <p style="color: red;">Failure</p>
         {% endif %}
