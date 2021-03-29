@@ -3,7 +3,7 @@ from pickle import load, dump
 from timeit import default_timer as timer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import classification_report, accuracy_score, f1_score, average_precision_score
 
 
 ACTIVATIONS = ['relu', 'logistic', 'identity', 'tanh']
@@ -29,7 +29,6 @@ def load_model():
 
     return loaded_model
 
-
 def MLP(sizes, activation, solver, max_iter):
     load_data = "NewComb2.csv"
     from sklearn.neural_network import MLPClassifier
@@ -42,33 +41,15 @@ def MLP(sizes, activation, solver, max_iter):
     encoded_data = label_encoding(data)
 
     X = encoded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
-                        'Dest Port', 'Packet Length', 'Packets/Time']]  # Data used to train
-    # print("Features: ", "\n", X)
-    y = encoded_data['target']  # targets for the MLP
-    # print("Targets: ", "\n", y)
+                        'Dest Port', 'Packet Length', 'Packets/Time']]
+    y = encoded_data['target']
 
     X_train, X_test, y_train, y_test = train_test_split(X, y)
-
-    # TODO:
-    # FIX THIS PART AND READ ABOUT StandartScaler
-    # https://issue.life/questions/40758562
-    # https://machinelearningmastery.com/feature-selection-machine-learning-python/
-
-    # scaler = StandardScaler()
-    # scaler.fit(X_train)
-    # X_train = scaler.transform(X_train)
-    # X_test = scaler.transform(X_test)
-
-    # print(X_train)  # Training data (fatures)
-    # print(X_test)  # Test data (features)
-
     start_time = timer()
     mlp.fit(X_train, y_train)  # fit is used to actually train the model
     end_time = timer()
     time_taken = end_time - start_time
-    predictions = mlp.predict(X_test)
-    # print("First 50 Predictions: ", "\n", mlp.predict(X_test)[0:50]) # Prints first 50 predictions
-    # print("First 50 Probabilities: ", "\n", mlp.predict_proba(X_test)[0:50]) # Prints first 50 probabilites
+    predictions_proba = mlp.predict(X_test), mlp.predict_proba(X_test)
     print("Number of iterations: ", mlp.n_iter_, "\n")
     hostile = 0
     safe = 0
@@ -77,13 +58,13 @@ def MLP(sizes, activation, solver, max_iter):
             hostile += 1
         else:
             safe += 1
+    acc = accuracy_score(y_test, predictions)
+    prec = average_precision_score(y_test, predictions)
+    f1 = f1_score(y_test, predictions)
+    class_report = classification_report(y_test, predictions)
     print("Safe Packets: ", safe)
     print("Hostile Packets: ", hostile)
-    print("Time Taken: ", time_taken)
-    print("Confusion Matrix: ", "\n",
-          confusion_matrix(y_test, predictions), "\n")
-    print("Classification Report: ", "\n",
-          classification_report(y_test, predictions), "\n")
+    print("Classification Report: ", "\n",class_report, "\n")
 
     # ci = input("Do you want to see weights and intercepts? (y/n) >")
     # if ci == "y":
@@ -97,5 +78,5 @@ def MLP(sizes, activation, solver, max_iter):
     #     filename = input("Filename for saving? >")
     #     dump(mlp, open(filename, "wb"))
 
-if __name__ == '__main__':
-    MLP()
+    return acc, prec, f1, y_test, predictions_proba, predictions
+    

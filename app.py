@@ -1,11 +1,9 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from ddos_detector import predict_ddos_attack
-from model_fitting import  ACTIVATIONS, SOLVERS, label_encoding
+from model_fitting import  ACTIVATIONS, SOLVERS, MLP, label_encoding
 from app_components import get_files_from_root
 from pandas import read_csv
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score, f1_score, average_precision_score
 from forms import ClassificationForm, LearningForm
 
@@ -52,6 +50,8 @@ def learning():
             sizes = (10, 10)
         try:
             accuracy, precision, f1score = MLP(sizes, activation, solver, max_iter)
+            skplt.metrics.plot_roc(y_test, y_proba)
+            plt.savefig('static/img/roc.png', dpi=512)
             success = True
         except Exception as e:
             print(e)
@@ -91,42 +91,5 @@ def classification():
         length = length
         )
 
-
-def MLP(sizes, activation, solver, max_iter):
-    load_data = "NewComb2.csv"
-    from sklearn.neural_network import MLPClassifier
-    mlp = MLPClassifier(hidden_layer_sizes=sizes, activation=activation,
-                        solver=solver, max_iter=max_iter, verbose=True,
-                        early_stopping=False, shuffle=True)
-
-    data = read_csv(f'data/{load_data}', delimiter=',')
-    data = data.sample(frac=1).reset_index(drop=True)
-    encoded_data = label_encoding(data)
-
-    X = encoded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
-                        'Dest Port', 'Packet Length', 'Packets/Time']]
-    y = encoded_data['target']
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y)
-
-    mlp.fit(X_train, y_train)  # fit is used to actually train the model
-    predictions = mlp.predict(X_test)
-    print("Number of iterations: ", mlp.n_iter_, "\n")
-    hostile = 0
-    safe = 0
-    for check in predictions:
-        if check:
-            hostile += 1
-        else:
-            safe += 1
-    acc = accuracy_score(y_test, predictions)
-    prec = average_precision_score(y_test, predictions)
-    f1 = f1_score(y_test, predictions)
-    class_report = classification_report(y_test, predictions)
-    print("Safe Packets: ", safe)
-    print("Hostile Packets: ", hostile)
-    print("Classification Report: ", "\n",class_report, "\n")
-
-    return acc, prec, f1
 if __name__ == '__main__':
     app.run(debug=True)

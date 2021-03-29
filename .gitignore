@@ -1,3 +1,5 @@
 dataset/
 __pycache__/
 .vscode/
+data_preprocessing.ipynb
+test.ipynb
