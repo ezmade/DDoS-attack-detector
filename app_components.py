@@ -9,6 +9,10 @@ def get_files_from_root(folder_name, file_extension):
     return files
 
 
+def allowed_file(filename, ALLOWED_EXTENSIONS):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
 WIN_WIDTH = 680
 WIN_HEIGHT = 620
 FONT_NAME = 'Courier New'

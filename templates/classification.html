@@ -4,43 +4,90 @@
     <meta charset="UTF-8">
     <title>Классификация данных</title>
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="shortcut icon" href="static/shield.ico">
 </head>
 <body>
-    <a class="link" href="/">На главную</a>
-    <form action="" method="POST" class="form-classification">
-        {{ form.csrf_token }}
-        {{ form.classification_model.label() }} {{ form.classification_model() }}
-        <br>
-        {{ form.input_file.label() }} {{ form.input_file() }}
-        <br>
-        <button type="submit">Загрузить</button>
-        <br>
-        <table class="classification_table">
-            <caption>Результат классификации</caption>
-            <tr class="predict_head">
-                <th>№</th>
-                <th>Source IP</th>
-                <th>Dest IP</th>
-                <th>Source Port</th>
-                <th>Dest Port</th>
-                <th>Result</th>
-            </tr>
-            {% for i in range(0, length) %}
-                <tr class="predict">
-                    <td>{{i+1}}</td>
-                    <td>{{data[['Source IP']].iloc[i].values[0]}}</td>
-                    <td>{{data[['Dest IP']].iloc[i].values[0]}}</td>
-                    <td>{{data[['Source Port']].iloc[i].values[0]}}</td>
-                    <td>{{data[['Dest Port']].iloc[i].values[0]}}</td>
-                    {% if predictions[i] == 1 %}
-                        <td style="color: red;">Bad traffic</td>
-                    {% else %}
-                        <td style="color: green;">Okay</td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-        </table>
-    </form>
+    <div id="loader" class="loader">
+        <div class="loader_inner"></div>
+    </div>
+    <header class="classification-header">
+        <div class="container">
+            <div class="logo">
+                <img src="" alt="" class="logo-img">
+                <span>ShielDDoS</span>
+            </div>
+            <div class="nav-bar">
+                <a class="link" href="/">О проекте</a>
+                <a class="link" href="learning">Обучение</a>
+                <a class="link" href="classification">Классификация</a>
+            </div>
+        </div>
+    </header>
+    <section id="classification-settings" class="classification-settings-section">
+        <div class="container">
+            <div class="content">
+                <p class="title">Классификация</p>
+                <p class="description">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
+                <!-- <a class="rect-button" href="#about"><span>Подробнее</span></a> -->
+                <form action="" method="POST" enctype=multipart/form-data class="form-classification">
+                    {{ form.csrf_token }}
+                    {{ form.classification_model.label() }} {{ form.classification_model() }}
+                    <br>
+                    {{ form.input_file.label() }} {{ form.input_file() }}
+                    <br>
+                    <button type="submit" onclick="load()">Загрузить</button>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </section>
+    {% if success or error_found %}
+        <style>.loader {
+            display: none;
+        }</style>
+        <section id="results" class="results-section">
+            <div class="container">
+                <table class="classification_table">
+                    <caption><b>Результат классификации</b></caption>
+                    <tr class="predict_head">
+                        <th>№</th>
+                        <th>Source IP</th>
+                        <th>Dest IP</th>
+                        <th>Source Port</th>
+                        <th>Dest Port</th>
+                        <th>Result</th>
+                    </tr>
+                    {% for i in range(0, length) %}
+                        <tr class="predict">
+                            <td>{{i+1}}</td>
+                            <td>{{data[['Source IP']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Dest IP']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Source Port']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Dest Port']].iloc[i].values[0]}}</td>
+                            {% if predictions[i] == 1 %}
+                                <td style="color: red;">Bad traffic</td>
+                            {% else %}
+                                <td style="color: green;">Okay</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </section>
+    {% endif %}
+    <footer>
+        <div class="container">
+            <div class="social">
+                <img src="" alt="" id="github" class="social-media-icon">
+                <img src="" alt="" id="instagram" class="social-media-icon">
+                <img src="" alt="" id="vkontakte" class="social-media-icon">
+                <img src="" alt="" id="facebook" class="social-media-icon">
+            </div>
+            <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
+            <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>
+            <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
+        </div>
+    </footer>
+    <script src="static/js/script.js"></script>
 </body>
 </html>

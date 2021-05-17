@@ -33,5 +33,10 @@ class LearningForm(FlaskForm):
         label='Введите размер скрытого слоя',
         validators=[DataRequired('Введите значение')]
     )
+    
+    input_file = FileField(
+        label='Выберите набор данных',
+        validators=[DataRequired('Выберите файл')]
+    )
 
 

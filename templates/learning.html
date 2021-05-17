@@ -1,33 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обучение модели</title>
-    <link rel="shortcut icon" href="static/favicon.ico">
+    <link rel="shortcut icon" href="static/shield.ico">
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-    <a class="link" href="/">На главную</a>
+    <div id="loader" class="loader">
+        <div class="loader_inner"></div>
+    </div>
+    <a class="link" href="/" style="color: #000">На главную</a>
     <h2>Обучение модели</h2>
-    <form action="" method="POST" class="form-learning">
+    <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
         {{ form.csrf_token }}
         {{ form.activations.label() }} {{ form.activations() }}
         {{ form.solvers.label() }} {{ form.solvers() }}
         {{ form.max_iters.label() }} {{ form.max_iters() }}
         {{ form.sizes.label() }} {{ form.sizes() }}
+        {{ form.csrf_token }}
         <br>
-        <button type="submit">Обучить</button>
+        {{ form.input_file.label() }} {{ form.input_file() }}
+        <br>
+        <button type="submit" onclick="load()">Обучить</button>
         <br>
         {% if success %}
+            <style>.loader {
+                display: none;
+            }</style>
             <p style="color: green;">Success</p>
             <p>Accuracy: {{ accuracy }}</p>
             <p>Precision: {{ precision }}</p>
             <p>F1 Score: {{ f1score }}</p>
+            <p>Время обучения: {{ time_taken }}</p>
+            <img src="/static/img/roc.png" width="400">
         {% else %}
             <p style="color: red;">Failure</p>
         {% endif %}
     </form>
-    <script src="/static/js/learning.js"></script>
+    <script src="static/js/script.js"></script>
 </body>
 </html>

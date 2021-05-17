@@ -29,14 +29,14 @@ def load_model():
 
     return loaded_model
 
-def MLP(sizes, activation, solver, max_iter):
-    load_data = "NewComb2.csv"
+def MLP(sizes, activation, solver, max_iter, dataset):
+    load_data = dataset
     from sklearn.neural_network import MLPClassifier
     mlp = MLPClassifier(hidden_layer_sizes=sizes, activation=activation,
                         solver=solver, max_iter=max_iter, verbose=True,
                         early_stopping=False, shuffle=True)
 
-    data = read_csv(f'data/{load_data}', delimiter=',')
+    data = read_csv(load_data, delimiter=',')
     data = data.sample(frac=1).reset_index(drop=True)
     encoded_data = label_encoding(data)
 
@@ -49,7 +49,7 @@ def MLP(sizes, activation, solver, max_iter):
     mlp.fit(X_train, y_train)  # fit is used to actually train the model
     end_time = timer()
     time_taken = end_time - start_time
-    predictions_proba = mlp.predict(X_test), mlp.predict_proba(X_test)
+    predictions, predictions_proba = mlp.predict(X_test), mlp.predict_proba(X_test)
     print("Number of iterations: ", mlp.n_iter_, "\n")
     hostile = 0
     safe = 0
@@ -78,5 +78,5 @@ def MLP(sizes, activation, solver, max_iter):
     #     filename = input("Filename for saving? >")
     #     dump(mlp, open(filename, "wb"))
 
-    return acc, prec, f1, y_test, predictions_proba, predictions
+    return acc, prec, f1, y_test, predictions_proba, predictions, time_taken
     
