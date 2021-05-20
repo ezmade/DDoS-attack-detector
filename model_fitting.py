@@ -78,5 +78,5 @@ def MLP(sizes, activation, solver, max_iter, dataset):
     #     filename = input("Filename for saving? >")
     #     dump(mlp, open(filename, "wb"))
 
-    return acc, prec, f1, y_test, predictions_proba, predictions, time_taken
+    return acc, prec, f1, y_test, predictions_proba, time_taken
     

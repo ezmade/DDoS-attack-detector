@@ -1,18 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Модели</title>
-  <link rel="shortcut icon" href="static/favicon.ico">
-  <link rel="stylesheet" href="static/css/style.css">
-</head>
-<body>
-  <a class="link" href="/">На главную</a>
-  {% if model_id %}
-     Model #{{ model_id }}!
-  {% else %}
-    The model page
-  {% endif %}
-</body>
-</html>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "bootstrap/base.html" %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Классификация сетевого трафика</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+{% endblock %}
+
+{% block body %}
+    <div id="loader" class="loader">
+        <div class="loader_inner"></div>
+    </div>
+    <header class="classification-header">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="">
+                        <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
+                        ShielDDoS
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">На главную</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="learning">Обучение</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classification">Классификация</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    {% if model_id %}
+        Model #{{ model_id }}!
+    {% else %}
+        The model page
+    {% endif %}
+{% endblock %}

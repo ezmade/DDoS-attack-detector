@@ -1,43 +1,66 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "bootstrap/base.html" %}
+{% block head %}
     <meta charset="UTF-8">
-    <title>Классификация данных</title>
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="shortcut icon" href="static/shield.ico">
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Классификация сетевого трафика</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+{% endblock %}
+
+{% block body %}
     <div id="loader" class="loader">
         <div class="loader_inner"></div>
     </div>
     <header class="classification-header">
         <div class="container">
-            <div class="logo">
-                <img src="" alt="" class="logo-img">
-                <span>ShielDDoS</span>
-            </div>
-            <div class="nav-bar">
-                <a class="link" href="/">О проекте</a>
-                <a class="link" href="learning">Обучение</a>
-                <a class="link" href="classification">Классификация</a>
-            </div>
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="">
+                        <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
+                        ShielDDoS
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">На главную</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="learning">Обучение</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classification">Классификация</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
-    <section id="classification-settings" class="classification-settings-section">
+    <section id="classification-settings" class="settings-section">
         <div class="container">
             <div class="content">
-                <p class="title">Классификация</p>
-                <p class="description">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
-                <!-- <a class="rect-button" href="#about"><span>Подробнее</span></a> -->
-                <form action="" method="POST" enctype=multipart/form-data class="form-classification">
-                    {{ form.csrf_token }}
-                    {{ form.classification_model.label() }} {{ form.classification_model() }}
-                    <br>
-                    {{ form.input_file.label() }} {{ form.input_file() }}
-                    <br>
-                    <button type="submit" onclick="load()">Загрузить</button>
-                    <br>
-                </form>
+                <div class="row align-items-center">
+                    <div class="col-9" style="max-width: 70rem;">
+                        <p class="title" style="color: rgba(0, 0, 0, 1);">Классификация</p>
+                        <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
+                        <form action="" method="POST" enctype=multipart/form-data class="form-classification">
+                            {{ form.csrf_token }}
+                            <p class="label">{{ form.classification_model.label() }} {{ form.classification_model() }}</p>
+                            <p class="label">{{ form.input_file() }}</p>
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Загрузить</button>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="col-3" style="margin: auto;">
+                        <img src="../static/img/Coding_PNG.png" alt="" class="img-fluid">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -47,8 +70,8 @@
         }</style>
         <section id="results" class="results-section">
             <div class="container">
+                <caption><b>Результат классификации</b></caption>
                 <table class="classification_table">
-                    <caption><b>Результат классификации</b></caption>
                     <tr class="predict_head">
                         <th>№</th>
                         <th>Source IP</th>
@@ -89,5 +112,4 @@
         </div>
     </footer>
     <script src="static/js/script.js"></script>
-</body>
-</html>
+{% endblock %}

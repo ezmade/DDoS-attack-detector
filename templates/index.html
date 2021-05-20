@@ -1,40 +1,57 @@
-<!DOCTYPE html>
-<html lang="ru">
-
-<head>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "bootstrap/base.html" %}
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANN for DDoS Attack Detection</title>
-    <link rel="stylesheet" href="static/css/style.css">
-    <link rel="shortcut icon" href="static/favicon.ico">  
-</head>
+    <title>ANN for DDoS Detection</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+{% endblock %}
 
-<body>
-    <section id="welcome" class="welcome-section">
+{% block body %}
+    <section id="welcome">
         <div class="container">
-            <header>
-                <div class="logo">
-                    <img src="" alt="" class="logo-img">
-                    <span>ShielDDoS</span>
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="">
+                        <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
+                        ShielDDoS
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#about">О проекте</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="learning">Обучение</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classification">Классификация</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="nav-bar">
-                    <a class="link" href="#about">О проекте</a>
-                    <a class="link" href="learning">Обучение</a>
-                    <a class="link" href="classification">Классификация</a>
-                </div>
-            </header>
+            </nav>
             <div class="content">
-                <div class="info">
-                    <p class="title">Anti-DDoS</p>
-                    <p class="description">Классификация сетевого трафика на основе различных архитектур нейронных сетей</p>
-                    <a class="rect-button" href="#about"><span>Подробнее</span></a>
+                <div class="row align-items-center">
+                    <div class="col-6" style="max-width: 60rem;">
+                        <p class="title">Anti-DDoS</p>
+                        <p class="description">Классификация сетевого трафика на основе различных архитектур нейронных сетей</p>
+                        <a href="#about"><button type="button" class="btn btn-primary btn-lg">Подробнее</button></a>
+                    </div>
+                    <div class="col-6" style="margin-left: auto;">
+                        <img src="../static/img/security_PNG.png" alt="" id="image-welcome" class="img-fluid">
+                    </div>
                 </div>
-                <img src="../static/img/security_PNG.png" alt="" id="welcome-image" class=image>
             </div>
         </div>
     </section>
 
-    <section id="about" class="about-section">
+    <section id="about">
         <div class="container">
             <p class="title">О проекте</p>
             <p class="description">Программное обеспечение для классификации сетевого трафика,
@@ -67,30 +84,38 @@
         </div>
     </section>
 
-    <section id="learning" class="learning-section">
+    <section id="classification" class="classification-section">
         <div class="container">
             <div class="content">
-                <div class=info>
-                    <p class="title">Обучение</p>
-                    <p class="description">Вы можете почувствовать себя настоящим специалистом в области искусственного интеллекта</p>
-                    <p class="small-description">Настройте параметры, выберите архитектуру и обучите на готовом наборе данных свою собственную нейронную сеть</p>
-                    <a class="rect-button" href="learning"><span>Попробовать</span></a>
+                <div class="row align-items-center">
+                    <div class="col-7" style="max-width: 60rem;">
+                        <p class="title">Классификация</p>
+                        <p class="description">Проверьте свой трафик на наличие DDoS атак. Система сообщит Вам, если найдет что-то подозрительное</p>
+                        <p class="small-description">5 обученных моделей используются для классификации сетевого трафика с очень высокой точностью</p>
+                        <a href="classification"><button type="button" class="btn btn-primary btn-lg">Подробнее</button></a>
+                    </div>
+                    <div class="col-5" style="margin-left: auto;">
+                        <img src="../static/img/Analytics_PNG.png" alt="" class="img-fluid">
+                    </div>
                 </div>
-                <img src="../static/img/Data_analysis_PNG.png" alt="learning-image" id="learning-image" class="image">
             </div>
         </div>
     </section>
 
-    <section id="classification" class="classification-section">
+    <section id="learning">
         <div class="container">
             <div class="content">
-                <div class=info>
-                    <p class="title">Классификация</p>
-                    <p class="description">Проверьте свой трафик на наличие DDoS атак. Система сообщит Вам, если найдет что-то подозрительное</p>
-                    <p class="small-description">5 обученных моделей используются для классификации сетевого трафика с очень высокой точностью</p>
-                    <a class="rect-button" href="classification"><span>Попробовать</span></a>
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <img src="../static/img/Data_analysis_PNG.png" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-7 text-right" style="max-width: 60rem; margin-left: auto;" >
+                        <p class="title">Обучение</p>
+                        <p class="description">Вы можете почувствовать себя настоящим специалистом в области искусственного интеллекта</p>
+                        <p class="small-description">Настройте параметры, выберите архитектуру и обучите на готовом наборе данных свою собственную нейронную сеть</p>
+                        <a href="learning"><button type="button" class="btn btn-primary btn-lg">Попробовать</button></a>
+                    </div>
                 </div>
-                <img src="../static/img/Analytics_PNG.png" alt="classificaiton-image" id="classification-image" class="image">
             </div>
         </div>
     </section>
@@ -108,7 +133,4 @@
             <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
         </div>
     </footer>
-
-</body>
-
-</html>
+{% endblock %}

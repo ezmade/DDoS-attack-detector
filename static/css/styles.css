@@ -18,6 +18,7 @@ body {
     font-family: 'Rubik', sans-serif;
     font-weight: 400;
     font-size: large;
+    background:rgb(254,245,248) 
 }
 
 .container {
@@ -26,11 +27,73 @@ body {
 
 section {
     height: 100vh; 
-    background: #0B1E50;
 }
+
+
+/* Loader */
+.loader {
+    display: none;
+    background: none repeat scroll 0 0 #fff;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+  }
+  .loader .loader_inner {
+    animation: animate 1.5s linear infinite;
+    clip: rect(0, 80px, 80px, 40px);
+    height: 80px;
+    width: 80px;
+    position: absolute;
+    left: calc(50% - 40px);
+    top: calc(50% - 40px);
+  }
+  @keyframes animate {
+    0% {
+      transform: rotate(0deg)
+    }
+    100% {
+      transform: rotate(220deg)
+    }
+  }
+  .loader .loader_inner:after {
+    animation: animate2 1.5s ease-in-out infinite;
+    clip: rect(0, 80px, 80px, 40px);
+    content:'';
+    border-radius: 50%;
+    height: 80px;
+    width: 80px;
+    position: absolute;
+  }
+  @keyframes animate2 {
+    0% {
+      box-shadow: inset #b3dfd8 0 0 0 17px;
+      transform: rotate(-140deg);
+    }
+    50% {
+      box-shadow: inset #b3dfd8 0 0 0 2px;
+    }
+    100% {
+      box-shadow: inset #b3dfd8 0 0 0 17px;
+      transform: rotate(140deg);
+    }
+  }
+
+
+
 
 .collapse {
     justify-content: flex-end;
+}
+
+.navbar-brand {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    font-size: large;
 }
 
 .title {
@@ -40,19 +103,80 @@ section {
 }
 
 .description {
-    max-width: 60rem;
     padding-top: 1rem;
     font-size: 2.4rem;
     color: rgba(255, 255, 255, 0.85);
 }
 
 .small-description {
-    width: 50rem;
     font-size: 1.8rem;
     color: rgba(255, 255, 255, 0.75);
 }
 
-#content-welcome {
+.content {
     padding-top: 20rem;
 }
+
+
+header {
+    background: #0B1E50;
+}
+
+footer {
+    color: #fff;
+    text-align: center;
+}
+
+
+#welcome, #classification, footer{
+    background: #0B1E50;
+}
+
+#about .title, #learning .title {
+    color: rgba(0, 0, 0, 1);
+}
+
+#about .description, #learning .description {
+    color: rgba(0, 0, 0, 0.85);
+}
+
+#learning .small-description {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.footer-text {
+    margin: 0;
+    padding-bottom: 1rem;
+}
+
+/* Results Section (WIP)*/
+
+.results-section {
+    height: fit-content;
+    display: grid;
+    justify-content: center;
+}
+
+.results-section .classification_table {
+    border-collapse: collapse;
+    margin: .5rem;
+}
+
+.results-section td, th{
+    padding: .5rem 1rem;
+    border: 1px solid black;
+}
+
+.results-section .predict_head th{
+    font-weight: normal;
+    font-size: large;
+    text-align: center;
+}
+
+.results-section .predict {
+    font-weight: 100;
+    font-size: medium;
+    text-align: center;
+}
+
 

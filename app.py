@@ -22,7 +22,7 @@ bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
-    return render_template('base.html')
+    return render_template('index.html')
 
 
 @app.route('/models')
@@ -62,7 +62,7 @@ def learning():
         else:
             sizes = (10, 10)
         try:
-            accuracy, precision, f1score, y_test, y_proba, _, time_taken= MLP(sizes, activation, solver, max_iter, data)
+            accuracy, precision, f1score, y_test, y_proba, time_taken = MLP(sizes, activation, solver, max_iter, data)
             skplt.metrics.plot_roc(y_test, y_proba)
             plt.savefig('static/img/roc.png', dpi=512)
             success = True

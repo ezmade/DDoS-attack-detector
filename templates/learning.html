@@ -1,44 +1,104 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
+{% import "bootstrap/wtf.html" as wtf %}
+{% extends "bootstrap/base.html" %}
+{% block head %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Обучение модели</title>
-    <link rel="shortcut icon" href="static/shield.ico">
-    <link rel="stylesheet" href="static/css/style.css">
-</head>
-<body>
+    <title>Обучение нейронной сети</title>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="static/css/styles.css">
+    <link rel="shortcut icon" href="static/favicon.ico">
+{% endblock %}
+
+{% block body %}
     <div id="loader" class="loader">
         <div class="loader_inner"></div>
     </div>
-    <a class="link" href="/" style="color: #000">На главную</a>
-    <h2>Обучение модели</h2>
-    <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
-        {{ form.csrf_token }}
-        {{ form.activations.label() }} {{ form.activations() }}
-        {{ form.solvers.label() }} {{ form.solvers() }}
-        {{ form.max_iters.label() }} {{ form.max_iters() }}
-        {{ form.sizes.label() }} {{ form.sizes() }}
-        {{ form.csrf_token }}
-        <br>
-        {{ form.input_file.label() }} {{ form.input_file() }}
-        <br>
-        <button type="submit" onclick="load()">Обучить</button>
-        <br>
-        {% if success %}
-            <style>.loader {
-                display: none;
-            }</style>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="">
+                        <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
+                        ShielDDoS
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">На главную</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="learning">Обучение</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="classification">Классификация</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section id="learning-settings-section" class="settings-section">
+        <div class="container">
+            <div class="content">
+                <div class="row align-items-center">
+                    <div class="col-8" style="max-width: 70rem;">
+                        <p class="title" style="color: rgba(0, 0, 0, 1);">Обучение модели</p>
+                        <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и найстройте параметры нейронной сети</p>
+                        <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
+                            {{ form.csrf_token }}
+                            {{ form.activations.label() }} {{ form.activations() }}
+                            {{ form.solvers.label() }} {{ form.solvers() }}
+                            {{ form.max_iters.label() }} {{ form.max_iters() }}
+                            {{ form.sizes.label() }} {{ form.sizes() }}
+                            {{ form.csrf_token }}
+                            <br>
+                            {{ form.input_file.label() }} {{ form.input_file() }}
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Обучить</button>
+                            <br>
+                        </form>
+                    </div>
+                    <div class="col-4" style="margin: auto;">
+                        <img src="../static/img/Creative_process_PNG.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% if success %}
+        <style>.loader {
+             display: none;
+        }</style>
+        <section id="results" class="results-section">
             <p style="color: green;">Success</p>
             <p>Accuracy: {{ accuracy }}</p>
             <p>Precision: {{ precision }}</p>
             <p>F1 Score: {{ f1score }}</p>
             <p>Время обучения: {{ time_taken }}</p>
             <img src="/static/img/roc.png" width="400">
-        {% else %}
+        </section>
+    {% else %}
+        <section id="results" class="results-section">
             <p style="color: red;">Failure</p>
-        {% endif %}
-    </form>
+        </section>
+        
+    {% endif %}
+    <footer>
+        <div class="container">
+            <div class="social">
+                <img src="" alt="" id="github" class="social-media-icon">
+                <img src="" alt="" id="instagram" class="social-media-icon">
+                <img src="" alt="" id="vkontakte" class="social-media-icon">
+                <img src="" alt="" id="facebook" class="social-media-icon">
+            </div>
+            <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
+            <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>
+            <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
+        </div>
+    </footer>
     <script src="static/js/script.js"></script>
-</body>
-</html>
+{% endblock %}
