@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Классификация сетевого трафика</title>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">    
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
     <link rel="shortcut icon" href="static/favicon.ico">
 {% endblock %}
@@ -13,39 +14,40 @@
     <div id="loader" class="loader">
         <div class="loader_inner"></div>
     </div>
-    <header class="classification-header">
-        <div class="container">
-            <nav class="navbar navbar-expand-md navbar-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="">
-                        <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
-                        ShielDDoS
-                    </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">На главную</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="learning">Обучение</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="classification">Классификация</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+    
     <section id="classification-settings" class="settings-section">
+        <header class="classification-header">
+            <div class="container">
+                <nav class="navbar navbar-expand-md navbar-dark">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="">
+                            <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
+                            ShielDDoS
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">На главную</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="learning">Обучение</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="classification">Классификация</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
         <div class="container">
             <div class="content">
                 <div class="row align-items-center">
-                    <div class="col-9" style="max-width: 70rem;">
+                    <div class="col-8" style="max-width: 70rem;">
                         <p class="title" style="color: rgba(0, 0, 0, 1);">Классификация</p>
                         <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
                         <form action="" method="POST" enctype=multipart/form-data class="form-classification">
@@ -57,7 +59,7 @@
                             <br>
                         </form>
                     </div>
-                    <div class="col-3" style="margin: auto;">
+                    <div class="col-4" style="margin-left: auto;">
                         <img src="../static/img/Coding_PNG.png" alt="" class="img-fluid">
                     </div>
                 </div>
@@ -100,12 +102,12 @@
     {% endif %}
     <footer>
         <div class="container">
-            <div class="social">
-                <img src="" alt="" id="github" class="social-media-icon">
-                <img src="" alt="" id="instagram" class="social-media-icon">
-                <img src="" alt="" id="vkontakte" class="social-media-icon">
-                <img src="" alt="" id="facebook" class="social-media-icon">
-            </div>
+            <ul class="social-icons">
+                <li><a href="#"><i class="fa fa-github"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            </ul>
             <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
             <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>
             <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>

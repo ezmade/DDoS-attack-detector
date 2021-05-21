@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANN for DDoS Detection</title>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="static/css/styles.css">
     <link rel="shortcut icon" href="static/favicon.ico">
 {% endblock %}
@@ -38,7 +39,7 @@
             </nav>
             <div class="content">
                 <div class="row align-items-center">
-                    <div class="col-6" style="max-width: 60rem;">
+                    <div class="col-6" style="max-width: 70rem;">
                         <p class="title">Anti-DDoS</p>
                         <p class="description">Классификация сетевого трафика на основе различных архитектур нейронных сетей</p>
                         <a href="#about"><button type="button" class="btn btn-primary btn-lg">Подробнее</button></a>
@@ -58,24 +59,36 @@
                 разработанное в рамках выпускной квалификационой работы бакалавра по направлению
                 "Программная инженерия" в Южно-Уральском Государственном Университете
             </p>
-            <div class="features">
-                <div class="feature">
-                    <div class="logo"></div>
-                    <p class="feature-title">Название функции</p>
-                    <p class="feature-description">Высокий уровень вовлечения представителей целевой аудитории является четким
-                        доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+            <div class="row">
+                <div class="col-sm">
+                    <div class="card" style="width: 40rem;">
+                        <img src="/static/img/network.png" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-title">Название функции</p>
+                            <p class="card-text">Высокий уровень вовлечения представителей целевой аудитории является четким
+                            доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+                        </div> 
+                    </div>
                 </div>
-                <div class="feature">
-                    <div class="logo"></div>
-                    <p class="feature-title">Название функции</p>
-                    <p class="feature-description">Высокий уровень вовлечения представителей целевой аудитории является четким
-                        доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+                <div class="col-sm">
+                    <div class="card" style="width: 40rem;">
+                        <img src="/static/img/network.png" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-title">Название функции</p>
+                            <p class="card-text">Высокий уровень вовлечения представителей целевой аудитории является четким
+                            доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+                        </div> 
+                    </div>
                 </div>
-                <div class="feature">
-                    <div class="logo"></div>
-                    <p class="feature-title">Название функции</p>
-                    <p class="feature-description">Высокий уровень вовлечения представителей целевой аудитории является четким
-                        доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+                <div class="col-sm">
+                    <div class="card" style="width: 40rem;">
+                        <img src="/static/img/network.png" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <p class="card-title">Название функции</p>
+                            <p class="card-text">Высокий уровень вовлечения представителей целевой аудитории является четким
+                            доказательством простого факта: высококачественный прототип будущего проекта требует.</p>
+                        </div> 
+                    </div>
                 </div>
             </div>
             <div class="learn-more">
@@ -88,7 +101,7 @@
         <div class="container">
             <div class="content">
                 <div class="row align-items-center">
-                    <div class="col-7" style="max-width: 60rem;">
+                    <div class="col-7" style="max-width: 70rem;">
                         <p class="title">Классификация</p>
                         <p class="description">Проверьте свой трафик на наличие DDoS атак. Система сообщит Вам, если найдет что-то подозрительное</p>
                         <p class="small-description">5 обученных моделей используются для классификации сетевого трафика с очень высокой точностью</p>
@@ -109,7 +122,7 @@
                     <div class="col-5">
                         <img src="../static/img/Data_analysis_PNG.png" alt="" class="img-fluid">
                     </div>
-                    <div class="col-7 text-right" style="max-width: 60rem; margin-left: auto;" >
+                    <div class="col-7" style="max-width: 70rem; margin-left: auto;" >
                         <p class="title">Обучение</p>
                         <p class="description">Вы можете почувствовать себя настоящим специалистом в области искусственного интеллекта</p>
                         <p class="small-description">Настройте параметры, выберите архитектуру и обучите на готовом наборе данных свою собственную нейронную сеть</p>
@@ -122,12 +135,12 @@
 
     <footer>
         <div class="container">
-            <div class="social">
-                <img src="" alt="" id="github" class="social-media-icon">
-                <img src="" alt="" id="instagram" class="social-media-icon">
-                <img src="" alt="" id="vkontakte" class="social-media-icon">
-                <img src="" alt="" id="facebook" class="social-media-icon">
-            </div>
+            <ul class="social-icons">
+                <li><a href="#"><i class="fa fa-github"></i></a></li>
+                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            </ul>
             <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
             <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>
             <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
