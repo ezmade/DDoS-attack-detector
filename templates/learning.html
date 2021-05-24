@@ -51,14 +51,13 @@
                         <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и найстройте параметры нейронной сети</p>
                         <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
                             {{ form.csrf_token }}
-                            {{ form.activations.label() }} {{ form.activations() }}
-                            {{ form.solvers.label() }} {{ form.solvers() }}
-                            {{ form.max_iters.label() }} {{ form.max_iters() }}
-                            {{ form.sizes.label() }} {{ form.sizes() }}
-                            {{ form.csrf_token }}
+                            <span data-tooltip="Всплывающая подсказка">{{ form.activations.label() }}</span> {{ form.activations() }}
+                            <span data-tooltip="Всплывающая подсказка">{{ form.solvers.label() }}</span> {{ form.solvers() }} <br>
+                            <span data-tooltip="Всплывающая подсказка">{{ form.max_iters.label() }}</span> {{ form.max_iters() }} <br>
+                            <span data-tooltip="Всплывающая подсказка">{{ form.sizes.label() }}</span> {{ form.sizes() }} <br>
+                            {{ form.label_name.label() }} {{ form.label_name() }}
                             <br>
-                            {{ form.input_file.label() }} {{ form.input_file() }}
-                            <br>
+                            {{ form.input_file.label() }} {{ form.input_file() }}                          
                             <br>
                             <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Обучить</button>
                             <br>
@@ -92,10 +91,10 @@
     <footer>
         <div class="container">
             <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-github"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://github.com/ezmade"><i class="fa fa-github"></i></a></li>
+                <li><a href="https://www.instagram.com/ezmade/"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://vk.com/easymadee"><i class="fa fa-vk"></i></a></li>
+                <li><a href="https://www.facebook.com/anton.easymade"><i class="fa fa-facebook"></i></a></li>
             </ul>
             <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
             <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>

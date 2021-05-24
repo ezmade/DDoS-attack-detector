@@ -4,7 +4,7 @@ from flask import Flask, render_template, request
 from flask_bs4 import Bootstrap
 from ddos_detector import predict_ddos_attack
 from model_fitting import  ACTIVATIONS, SOLVERS, MLP
-from app_components import get_files_from_root, allowed_file
+from app_components import get_files_from_root, allowed_file, get_models_from_root
 from forms import ClassificationForm, LearningForm
 from werkzeug.utils import secure_filename
 import scikitplot as skplt
@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 UPLOAD_FOLDER = 'data/'
 ALLOWED_EXTENSIONS = set(['csv'])
+ATTACKS = ['Benign', 'FTP-BruteForce', 'SSH-BruteForce', 'DOS attacks-SlowHTTPTest']
 
 app = Flask(__name__)
 SECRET_KEY = os.urandom(32)
@@ -49,6 +50,7 @@ def learning():
         activation = form.activations.data
         solver = form.solvers.data
         input_file = request.files['input_file']
+        label_name = form.label_name.data
         if input_file and allowed_file(input_file.filename, ALLOWED_EXTENSIONS):
             filename = secure_filename(input_file.filename)
             input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -62,7 +64,7 @@ def learning():
         else:
             sizes = (10, 10)
         try:
-            accuracy, precision, f1score, y_test, y_proba, time_taken = MLP(sizes, activation, solver, max_iter, data)
+            accuracy, precision, f1score, y_test, y_proba, time_taken = MLP(sizes, activation, solver, max_iter, data, label_name)
             skplt.metrics.plot_roc(y_test, y_proba)
             plt.savefig('static/img/roc.png', dpi=512)
             success = True
@@ -85,7 +87,7 @@ def learning():
 @app.route('/classification', methods=['GET', 'POST'])
 def classification():
     form = ClassificationForm()
-    models = get_files_from_root('./models', '.sav')
+    models = get_models_from_root('./models')
     form.classification_model.choices=models
     data = []
     predictions = []
@@ -98,9 +100,10 @@ def classification():
             filename = secure_filename(input_file.filename)
             input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         modelname = form.classification_model.data
-        file = f'data/{filename}'
+        file = f'{UPLOAD_FOLDER}{filename}'
+        print('yep')
         try:
-            data, predictions = predict_ddos_attack(f'models/{modelname}', file)
+            data, predictions = predict_ddos_attack(modelname, file)
             length = len(predictions)
             success = True
         except:
@@ -113,7 +116,8 @@ def classification():
         predictions=predictions, 
         length=length,
         success=success,
-        error_found=error_found
+        error_found=error_found,
+        attacks=ATTACKS
         )
 
 if __name__ == '__main__':

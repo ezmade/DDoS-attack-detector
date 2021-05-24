@@ -1,7 +1,8 @@
 from pandas import read_csv
 from pickle import load, dump
 from sklearn.preprocessing import LabelEncoder
-from numpy import reshape
+import tensorflow as tf
+import numpy as np
 
 
 def label_encoding(data):
@@ -15,25 +16,29 @@ def label_encoding(data):
     return data
 
 
-def load_model(path):
-    with open(path, "rb") as f:
-        try:
-            loaded_model = load(f)
-        except:
-            print('Somethind wrong with the input file.')
-    return loaded_model
+# def load_model(path):
+#     with open(path, "rb") as f:
+#         try:
+#             loaded_model = load(f)
+#         except:
+#             print('Somethind wrong with the input file.')
+#     return loaded_model
 
 
-def predict_ddos_attack(model_path, file):
-    model = load_model(model_path)
+def predict_ddos_attack(model_name, file):
+    print(model_name)
+    model = tf.keras.models.load_model(f'models/{model_name}')
+    print('1')
     data = read_csv(file)
-    enconded_data = label_encoding(data)
-    try:
-        features = enconded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
-                        'Dest Port', 'Packet Length', 'Packets/Time']]
-    except:
-        print('Incorrect columns of dataset')
-        return -1
+    print('2')
+    features = label_encoding(data.drop(columns='Label'))
+    print('3')
+    features.replace([np.inf, -np.inf], np.nan, inplace=True)
+    print('4')
+    for col in features.select_dtypes(include=np.number):
+        features[col] = features[col].fillna(features[col].median())
     
+    print('okay')
     prediction = model.predict(features)
+    prediction = np.argmax(prediction, axis = 1)
     return data, prediction

@@ -54,7 +54,6 @@
                             {{ form.csrf_token }}
                             <p class="label">{{ form.classification_model.label() }} {{ form.classification_model() }}</p>
                             <p class="label">{{ form.input_file() }}</p>
-                            <br>
                             <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Загрузить</button>
                             <br>
                         </form>
@@ -76,23 +75,23 @@
                 <table class="classification_table">
                     <tr class="predict_head">
                         <th>№</th>
-                        <th>Source IP</th>
-                        <th>Dest IP</th>
-                        <th>Source Port</th>
-                        <th>Dest Port</th>
+                        <th>Dst Port</th>
+                        <th>Protocol</th>
+                        <th>Timestamp</th>
+                        <th>Flow Duration</th>
                         <th>Result</th>
                     </tr>
                     {% for i in range(0, length) %}
                         <tr class="predict">
                             <td>{{i+1}}</td>
-                            <td>{{data[['Source IP']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Dest IP']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Source Port']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Dest Port']].iloc[i].values[0]}}</td>
-                            {% if predictions[i] == 1 %}
-                                <td style="color: red;">Bad traffic</td>
+                            <td>{{data[['Dst Port']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Protocol']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Timestamp']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Flow Duration']].iloc[i].values[0]}}</td>
+                            {% if predictions[i] != 0 %}
+                                <td style="color: red;">{attacks[predictions[i]]}</td>
                             {% else %}
-                                <td style="color: green;">Okay</td>
+                                <td style="color: green;">{attacks[predictions[i]]}</td>
                             {% endif %}
                         </tr>
                     {% endfor %}
@@ -103,10 +102,10 @@
     <footer>
         <div class="container">
             <ul class="social-icons">
-                <li><a href="#"><i class="fa fa-github"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-vk"></i></a></li>
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://github.com/ezmade"><i class="fa fa-github"></i></a></li>
+                <li><a href="https://www.instagram.com/ezmade/"><i class="fa fa-instagram"></i></a></li>
+                <li><a href="https://vk.com/easymadee"><i class="fa fa-vk"></i></a></li>
+                <li><a href="https://www.facebook.com/anton.easymade"><i class="fa fa-facebook"></i></a></li>
             </ul>
             <p id="phone" class="footer-text">Тел.: +7 (951) 801 91-91</p>
             <p id="email" class="footer-text">Email: antonboykodev@gmail.com</p>

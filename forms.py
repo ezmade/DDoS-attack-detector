@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import SelectField, FileField, DecimalField
+from wtforms import SelectField, FileField, DecimalField, StringField
 from wtforms.validators import DataRequired
 
 class ClassificationForm(FlaskForm):
@@ -31,6 +31,11 @@ class LearningForm(FlaskForm):
 
     sizes = DecimalField(
         label='Введите размер скрытого слоя',
+        validators=[DataRequired('Введите значение')]
+    )
+
+    label_name = StringField(
+        label='Введите название ключевого признака',
         validators=[DataRequired('Введите значение')]
     )
     

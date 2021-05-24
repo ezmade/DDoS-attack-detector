@@ -1,12 +1,19 @@
 from tkinter import messagebox, scrolledtext, Label, Button, Tk, INSERT, END, Entry
 from tkinter.ttk import Combobox
 from os import listdir
+from os.path import isdir
 
 
 def get_files_from_root(folder_name, file_extension):
     files = listdir(folder_name)
     files = list(filter(lambda x: x.endswith(file_extension), files))
     return files
+
+def get_models_from_root(folder_name):
+    models = []
+    for file in listdir(folder_name):
+        models.append(file)
+    return models
 
 
 def allowed_file(filename, ALLOWED_EXTENSIONS):

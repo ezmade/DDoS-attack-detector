@@ -21,15 +21,7 @@ def label_encoding(data):
     return data
 
 
-def load_model():
-    filename = input('Name of model? >')
-    loaded_model = load(open(filename, 'rb'))
-    print(loaded_model.coefs_)
-    print(loaded_model.loss_)
-
-    return loaded_model
-
-def MLP(sizes, activation, solver, max_iter, dataset):
+def MLP(sizes, activation, solver, max_iter, dataset, label_name):
     load_data = dataset
     from sklearn.neural_network import MLPClassifier
     mlp = MLPClassifier(hidden_layer_sizes=sizes, activation=activation,
@@ -39,10 +31,11 @@ def MLP(sizes, activation, solver, max_iter, dataset):
     data = read_csv(load_data, delimiter=',')
     data = data.sample(frac=1).reset_index(drop=True)
     encoded_data = label_encoding(data)
-
-    X = encoded_data[['Highest Layer', 'Transport Layer', 'Source IP', 'Dest IP', 'Source Port',
-                        'Dest Port', 'Packet Length', 'Packets/Time']]
-    y = encoded_data['target']
+    print(label_name)
+    y = encoded_data[label_name]
+    print('ok')
+    X = encoded_data.drop(label_name, axis=1)
+    print('ok2')
 
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     start_time = timer()
