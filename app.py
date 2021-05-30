@@ -2,9 +2,8 @@ from datetime import time
 import os
 from flask import Flask, render_template, request
 from flask_bs4 import Bootstrap
-from ddos_detector import predict_ddos_attack
-from model_fitting import  ACTIVATIONS, SOLVERS, MLP
-from app_components import get_files_from_root, allowed_file, get_models_from_root
+from ddos_ann import  ACTIVATIONS, SOLVERS, MLP, predict_ddos_attack
+from app_components import allowed_file, get_models_from_root
 from forms import ClassificationForm, LearningForm
 from werkzeug.utils import secure_filename
 import scikitplot as skplt
@@ -24,12 +23,6 @@ bootstrap = Bootstrap(app)
 @app.route('/')
 def index():
     return render_template('index.html')
-
-
-@app.route('/models')
-def models():
-    return render_template('models.html')
-
 
 @app.route('/about')
 def about():
@@ -92,7 +85,7 @@ def classification():
     data = []
     predictions = []
     success = False
-    error_found = False
+    error_found = True
     length = 0
     if form.validate_on_submit():
         input_file = request.files['input_file']
@@ -101,7 +94,6 @@ def classification():
             input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         modelname = form.classification_model.data
         file = f'{UPLOAD_FOLDER}{filename}'
-        print('yep')
         try:
             data, predictions = predict_ddos_attack(modelname, file)
             length = len(predictions)

@@ -5,8 +5,7 @@ from os.path import isdir
 
 
 def get_files_from_root(folder_name, file_extension):
-    files = listdir(folder_name)
-    files = list(filter(lambda x: x.endswith(file_extension), files))
+    files = list(filter(lambda x: x.endswith(file_extension), listdir(folder_name)))
     return files
 
 def get_models_from_root(folder_name):

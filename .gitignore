@@ -3,5 +3,4 @@ __pycache__/
 .vscode/
 data_preprocessing.ipynb
 test.ipynb
-templates/main.html
-static/css/style.css
+data/data.csv

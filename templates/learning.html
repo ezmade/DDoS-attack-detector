@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block body %}
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <div id="loader" class="loader">
         <div class="loader_inner"></div>
     </div>
@@ -51,15 +52,18 @@
                         <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и найстройте параметры нейронной сети</p>
                         <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
                             {{ form.csrf_token }}
-                            <span data-tooltip="Всплывающая подсказка">{{ form.activations.label() }}</span> {{ form.activations() }}
-                            <span data-tooltip="Всплывающая подсказка">{{ form.solvers.label() }}</span> {{ form.solvers() }} <br>
-                            <span data-tooltip="Всплывающая подсказка">{{ form.max_iters.label() }}</span> {{ form.max_iters() }} <br>
-                            <span data-tooltip="Всплывающая подсказка">{{ form.sizes.label() }}</span> {{ form.sizes() }} <br>
-                            {{ form.label_name.label() }} {{ form.label_name() }}
-                            <br>
-                            {{ form.input_file.label() }} {{ form.input_file() }}                          
-                            <br>
-                            <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Обучить</button>
+                            <span data-tooltip="Функция активации определяет выходное значение нейрона в зависимости от результата взвешенной суммы входов и порогового значения">{{ form.activations.label() }}</span> {{ form.activations() }}
+                            <span data-tooltip="Оптимизаторы определяют оптимальный набор параметров модели, таких как вес и смещение, чтобы при решении конкретной задачи модель выдавала наилучшие результаты">{{ form.solvers.label() }}</span> {{ form.solvers() }} <br>
+                            <span data-tooltip="Итерация - это общее количество тренировочных сетов пройденных нейронной сетью">{{ form.max_iters.label() }}</span> {{ form.max_iters() }} <br>
+                            <span>{{ form.sizes.label() }}</span> {{ form.sizes() }} <br>
+                            <p class="label">{{ form.label_name.label() }} {{ form.label_name() }}</p>
+                            <p class="label">{{ form.input_file() }}</p>
+                            {% if form.input_file.errors %} 
+                                {% for error in form.input_file.errors %}
+                                    <p style="color: red;">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
                             <br>
                         </form>
                     </div>
@@ -84,9 +88,8 @@
         </section>
     {% else %}
         <section id="results" class="results-section">
-            <p style="color: red;">Failure</p>
+            <p style="color: red; display: none">Failure</p>
         </section>
-        
     {% endif %}
     <footer>
         <div class="container">

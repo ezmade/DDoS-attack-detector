@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block body %}
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
     <div id="loader" class="loader">
         <div class="loader_inner"></div>
     </div>
-    
     <section id="classification-settings" class="settings-section">
         <header class="classification-header">
             <div class="container">
@@ -48,13 +48,18 @@
             <div class="content">
                 <div class="row align-items-center">
                     <div class="col-8" style="max-width: 70rem;">
-                        <p class="title" style="color: rgba(0, 0, 0, 1);">Классификация</p>
+                        <p class="title" style="color: rgba(0, 0, 0, 1);">Класси<wbr>фикация</p>
                         <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
                         <form action="" method="POST" enctype=multipart/form-data class="form-classification">
                             {{ form.csrf_token }}
                             <p class="label">{{ form.classification_model.label() }} {{ form.classification_model() }}</p>
                             <p class="label">{{ form.input_file() }}</p>
-                            <button type="submit" class="btn btn-primary btn-lg" onclick="load()">Загрузить</button>
+                            {% if form.input_file.errors %} 
+                                {% for error in form.input_file.errors %}
+                                    <p style="color: red;">{{ error }}</p>
+                                {% endfor %}
+                            {% endif %}
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
                             <br>
                         </form>
                     </div>
@@ -65,7 +70,7 @@
             </div>
         </div>
     </section>
-    {% if success or error_found %}
+    {% if success %}
         <style>.loader {
             display: none;
         }</style>
@@ -76,22 +81,22 @@
                     <tr class="predict_head">
                         <th>№</th>
                         <th>Dst Port</th>
-                        <th>Protocol</th>
                         <th>Timestamp</th>
                         <th>Flow Duration</th>
+                        <th>Tot Fwd Pkts</th>
                         <th>Result</th>
                     </tr>
                     {% for i in range(0, length) %}
                         <tr class="predict">
                             <td>{{i+1}}</td>
                             <td>{{data[['Dst Port']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Protocol']].iloc[i].values[0]}}</td>
                             <td>{{data[['Timestamp']].iloc[i].values[0]}}</td>
                             <td>{{data[['Flow Duration']].iloc[i].values[0]}}</td>
+                            <td>{{data[['Tot Fwd Pkts']].iloc[i].values[0]}}</td>
                             {% if predictions[i] != 0 %}
-                                <td style="color: red;">{attacks[predictions[i]]}</td>
+                                <td style="color: red;">{{attacks[predictions[i]]}}</td>
                             {% else %}
-                                <td style="color: green;">{attacks[predictions[i]]}</td>
+                                <td style="color: green;">{{attacks[predictions[i]]}}</td>
                             {% endif %}
                         </tr>
                     {% endfor %}

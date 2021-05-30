@@ -138,12 +138,18 @@ section {
     padding: 2rem;
     border-radius: 2.3rem;
     box-shadow: 8px 8px 20px 3px rgba(0, 0, 0, 0.15);
+    min-height: 55rem;
 }
 
 .card-title {
     font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
+}
+
+.card-img-top {
+    height: 30rem;
+    width: auto;
 }
 
 .learn-more {
@@ -176,7 +182,7 @@ footer {
     text-align: center;
 }
 
-#welcome, #about, #learning, #classification {
+#welcome, #about, #learning, #classification, .settings-section {
     height: fit-content; 
     min-height: 100vh; 
 }
@@ -214,6 +220,7 @@ footer {
     height: fit-content;
     display: grid;
     justify-content: center;
+    padding-bottom: 2rem;
 }
 
 .results-section .classification_table {
