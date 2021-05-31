@@ -13,16 +13,16 @@
 {% block body %}
     <section id="welcome">
         <div class="container">
-            <nav class="navbar navbar-expand-md navbar-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="">
                         <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
                         ShielDDoS
                     </a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 <a class="nav-link" href="#about">О проекте</a>
@@ -74,7 +74,7 @@
                         <img src="/static/img/Data_chart_PNG.png" alt="" class="card-img-top">
                         <div class="card-body">
                             <p class="card-title">Большой выбор</p>
-                            <p class="card-text">Вы можете выбрать 5 готовых моделей для классификации, которые обучены и протестированы на наборе данных <a href="https://www.unb.ca/cic/datasets/ids-2018.html">CSE-CIC-IDS2018</a>.</p>
+                            <p class="card-text">Вы можете выбрать 3 готовые модели для классификации, которые обучены и протестированы на наборе данных <a href="https://www.unb.ca/cic/datasets/ids-2018.html">CSE-CIC-IDS2018</a>.</p>
                         </div> 
                     </div>
                 </div>
@@ -99,9 +99,9 @@
             <div class="content">
                 <div class="row align-items-center">
                     <div class="col-7" style="max-width: 70rem;">
-                        <p class="title">Класси<wbr>фикация</p>
+                        <p class="title">Классификация</p>
                         <p class="description">Проверьте свой трафик на наличие DDoS атак. Система сообщит Вам, если найдет что-то подозрительное</p>
-                        <p class="small-description">5 обученных моделей используются для классификации сетевого трафика с очень высокой точностью</p>
+                        <p class="small-description">3 обученные модели используются для классификации сетевого трафика с очень высокой точностью</p>
                         <a href="classification"><button type="button" class="btn btn-primary btn-lg">Подробнее</button></a>
                     </div>
                     <div class="col-5" style="margin-left: auto;">
@@ -143,4 +143,15 @@
             <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
         </div>
     </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <script>
+      $('.modal').on('shown.bs.modal', function () {
+        $(this).find('[autofocus]').focus();
+      });
+    </script>
 {% endblock %}

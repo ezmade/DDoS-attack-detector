@@ -2,6 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import SelectField, FileField, DecimalField, StringField
 from wtforms.fields.simple import SubmitField
 from wtforms.validators import DataRequired, StopValidation, ValidationError, number_range
+from pandas import read_csv
+from werkzeug.utils import secure_filename
 
 class ClassificationForm(FlaskForm):
     
@@ -19,10 +21,9 @@ class ClassificationForm(FlaskForm):
     def validate_input_file(self, input_file):
         if not (str(input_file.data.filename).endswith('.csv')):
             raise StopValidation(
-                'Format is not supported. Choose .csv file.'
+                'Формат не поддерживается. Выберите файл с расширением .csv'
             )
-
-
+        
 
 class LearningForm(FlaskForm):
 
@@ -61,9 +62,17 @@ class LearningForm(FlaskForm):
     def validate_input_file(self, input_file):
         if not (str(input_file.data.filename).endswith('.csv')):
             raise StopValidation(
-                'Format is not supported. Choose .csv file.'
+                'Формат не поддерживается. Выберите файл с расширением .csv'
             )
-
-    
-
-
+        try:
+            filename = secure_filename(input_file.data.filename)
+            input_file.data.save(f'data/{filename}')
+            data = read_csv(f'data/{filename}')
+            if (len(list(data.iloc[:,-1].unique())) > 2):
+                raise StopValidation(
+                    'Набор данных не подходит для бинарной классификации'
+                )
+        except:
+            raise StopValidation(
+                'Невозможно открыть файл'
+            )

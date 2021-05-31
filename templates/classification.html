@@ -24,10 +24,10 @@
                             <img src="/static/img/Shield.png" alt="" width="36" height="48" class="d-inline-block align-text-center">
                             ShielDDoS
                         </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
                                     <a class="nav-link" href="/">На главную</a>
@@ -48,7 +48,7 @@
             <div class="content">
                 <div class="row align-items-center">
                     <div class="col-8" style="max-width: 70rem;">
-                        <p class="title" style="color: rgba(0, 0, 0, 1);">Класси<wbr>фикация</p>
+                        <p class="title" style="color: rgba(0, 0, 0, 1);">Классификация</p>
                         <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и выберите модель классификации</p>
                         <form action="" method="POST" enctype=multipart/form-data class="form-classification">
                             {{ form.csrf_token }}
@@ -117,5 +117,16 @@
             <p id="copyright" class="footer-text">© 2020-2021, Anton Boyko</p>
         </div>
     </footer>
+
     <script src="static/js/script.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
+    <script>
+      $('.modal').on('shown.bs.modal', function () {
+        $(this).find('[autofocus]').focus();
+      });
+    </script>
 {% endblock %}

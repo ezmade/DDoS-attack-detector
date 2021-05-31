@@ -21,12 +21,9 @@ body {
     background:rgb(254,245,248) 
 }
 
-.container {
-    max-width: 150rem;
-}
-
 section {
-    height: 100vh; 
+    min-height: 100vh; 
+    height: max-content;
 }
 
 
@@ -93,7 +90,6 @@ section {
     font-weight: lighter;
     margin-top: 2rem;
 }
-
 
 .collapse {
     justify-content: flex-end;
@@ -169,7 +165,8 @@ section {
 
 
 .content {
-    padding-top: 15rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 
