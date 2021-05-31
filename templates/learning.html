@@ -12,8 +12,8 @@
 
 {% block body %}
     <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    <div id="loader" class="loader">
-        <div class="loader_inner"></div>
+    <div id="loaders" class="loaders">
+        <div class="loaders_inner"></div>
     </div>
     <section id="learning-settings-section" class="settings-section">
         <header class="header">
@@ -49,10 +49,10 @@
                 <div class="row align-items-center">
                     <div class="col-8" style="max-width: 70rem;">
                         <p class="title" style="color: rgba(0, 0, 0, 1);">Обучение модели</p>
-                        <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и найстройте параметры нейронной сети</p>
+                        <p class="description" style="color: rgba(0, 0, 0, 0.85);">Для начала работы загрузите файл с данными в формате CSV и настройте параметры нейронной сети</p>
                         <form action="" method="POST" enctype=multipart/form-data  class="form-learning">
                             {{ form.csrf_token }}
-                            <span data-tooltip="Функция активации определяет выходное значение нейрона в зависимости от результата взвешенной суммы входов и порогового значения">{{ form.activations.label() }}</span> {{ form.activations() }}
+                            <span data-tooltip="Функция активации определяет выходное значение нейрона в зависимости от результата взвешенной суммы входов и порогового значения">{{ form.activations.label() }}</span> {{ form.activations() }} <br>
                             <span data-tooltip="Оптимизаторы определяют оптимальный набор параметров модели, таких как вес и смещение, чтобы при решении конкретной задачи модель выдавала наилучшие результаты">{{ form.solvers.label() }}</span> {{ form.solvers() }} <br>
                             <span data-tooltip="Итерация - это общее количество тренировочных сетов пройденных нейронной сетью">{{ form.max_iters.label() }}</span> {{ form.max_iters() }} <br>
                             <span>{{ form.sizes.label() }}</span> {{ form.sizes() }} <br>
@@ -63,7 +63,7 @@
                                     <p style="color: red;">{{ error }}</p>
                                 {% endfor %}
                             {% endif %}
-                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                            {{ form.submit(class="btn btn-primary btn-lg", onclick="load()") }}
                             <br>
                         </form>
                     </div>
@@ -71,22 +71,31 @@
                         <img src="../static/img/Creative_process_PNG.png" alt="" class="img-fluid">
                     </div>
                 </div>
+                {% if success %}
+                    <style>
+                    .loader {
+                        display: none;
+                    }
+                    .content {
+                        padding-top: 2rem;
+                    }</style>
+                    <div id="learning-results" class="settings-section">
+                        <div class="row align-items-center">
+                            <div class="col-4">
+                                <p class='description' style="color: rgba(0, 0, 0, 1);">Accuracy: {{ accuracy }}</p>
+                                <p class='description' style="color: rgba(0, 0, 0, 1);">Precision: {{ precision }}</p>
+                                <p class='description' style="color: rgba(0, 0, 0, 1);">F1 Score: {{ f1score }}</p>
+                                <p class='description' style="color: rgba(0, 0, 0, 1);">Время обучения: {{ time_taken }}</p>
+                            </div>
+                            <div class="col-6">
+                                <img src="/static/img/roc.png" class='img-fluid'>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
-    {% if success %}
-        <style>.loader {
-             display: none;
-        }</style>
-        <section id="results" class="results-section">
-            <p style="color: green;">Success</p>
-            <p>Accuracy: {{ accuracy }}</p>
-            <p>Precision: {{ precision }}</p>
-            <p>F1 Score: {{ f1score }}</p>
-            <p>Время обучения: {{ time_taken }}</p>
-            <img src="/static/img/roc.png" width="400">
-        </section>
-    {% endif %}
     <footer>
         <div class="container">
             <ul class="social-icons">

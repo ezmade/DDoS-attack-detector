@@ -64,15 +64,11 @@ class LearningForm(FlaskForm):
             raise StopValidation(
                 'Формат не поддерживается. Выберите файл с расширением .csv'
             )
-        try:
-            filename = secure_filename(input_file.data.filename)
-            input_file.data.save(f'data/{filename}')
-            data = read_csv(f'data/{filename}')
-            if (len(list(data.iloc[:,-1].unique())) > 2):
-                raise StopValidation(
-                    'Набор данных не подходит для бинарной классификации'
-                )
-        except:
+        filename = secure_filename(input_file.data.filename)
+        input_file.data.save(f'data/{filename}')
+        data = read_csv(f'data/{filename}')
+        print(len(data.iloc[:,-1].unique()))
+        if (len(data.iloc[:,-1].unique()) > 2):
             raise StopValidation(
-                'Невозможно открыть файл'
+                'Набор данных не подходит для бинарной классификации'
             )

@@ -1,17 +1,18 @@
 from datetime import time
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
+from flask.helpers import url_for
 from flask_bs4 import Bootstrap
 from ddos_ann import  ACTIVATIONS, SOLVERS, MLP, predict_ddos_attack
 from app_components import allowed_file, get_models_from_root
 from forms import ClassificationForm, LearningForm
-from werkzeug.utils import secure_filename
+from werkzeug.utils import redirect, secure_filename
 import scikitplot as skplt
 import matplotlib.pyplot as plt
 
 UPLOAD_FOLDER = 'data/'
 ALLOWED_EXTENSIONS = set(['csv'])
-ATTACKS = ['Benign', 'FTP-BruteForce', 'SSH-BruteForce', 'DOS attacks-SlowHTTPTest']
+ATTACKS = ['Benign','DOS attacks-SlowHTTPTest','FTP-BruteForce','SSH-BruteForce']
 
 app = Flask(__name__)
 SECRET_KEY = os.urandom(32)
@@ -44,10 +45,7 @@ def learning():
         solver = form.solvers.data
         input_file = request.files['input_file']
         label_name = form.label_name.data
-        if input_file and allowed_file(input_file.filename, ALLOWED_EXTENSIONS):
-            filename = secure_filename(input_file.filename)
-            input_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        data = f'data/{filename}'
+        data = f'data/{input_file.filename}'
         if form.max_iters.data:
             max_iter = int(form.max_iters.data)
         else:
@@ -111,6 +109,11 @@ def classification():
         error_found=error_found,
         attacks=ATTACKS
         )
+
+@app.route('/data/result/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    directory = os.path.join(app.root_path, app.config['UPLOAD_FOLDER'])
+    return send_from_directory(directory=directory+'result/', filename=filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

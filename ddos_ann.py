@@ -67,7 +67,7 @@ def MLP(sizes, activation, solver, max_iter, dataset, label_name):
     #     filename = input("Filename for saving? >")
     #     dump(mlp, open(filename, "wb"))
 
-    return acc, prec, f1, y_test, predictions_proba, time_taken
+    return f'{acc:.2f}', f'{prec:.2f}', f'{f1:.2f}', y_test, predictions_proba, f'{time_taken:.2f}'
     
 
 def predict_ddos_attack(model_name, file):
@@ -79,4 +79,10 @@ def predict_ddos_attack(model_name, file):
         features[col] = features[col].fillna(features[col].median())
     prediction = model.predict(features)
     prediction = np.argmax(prediction, axis = 1)
+    df = data.copy()
+    try:
+        df['Label'] = prediction
+        df.to_csv('data/result/dataframe.csv', index=False)
+    except:
+        print('bad')
     return data, prediction

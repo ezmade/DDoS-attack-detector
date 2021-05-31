@@ -11,9 +11,8 @@
 {% endblock %}
 
 {% block body %}
-    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-    <div id="loader" class="loader">
-        <div class="loader_inner"></div>
+    <div id="loaders" class="loaders">
+        <div class="loaders_inner"></div>
     </div>
     <section id="classification-settings" class="settings-section">
         <header class="classification-header">
@@ -59,51 +58,65 @@
                                     <p style="color: red;">{{ error }}</p>
                                 {% endfor %}
                             {% endif %}
-                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                            <a href="#results">{{ form.submit(class="btn btn-primary btn-lg", onclick="load()") }}</a>
                             <br>
                         </form>
                     </div>
                     <div class="col-4" style="margin-left: auto;">
                         <img src="../static/img/Coding_PNG.png" alt="" class="img-fluid">
                     </div>
+                    {% if success %}
+                    <style>
+                    .loader {
+                        display: none;
+                   }
+                   .content {
+                       padding-top: 2rem;
+                   }
+                    </style>
+                    <div class="results-section">
+                        <caption><b>Результат классификации</b></caption>
+                        <div class="frame">
+                            <table class="classification_table">
+                                <tr class="predict_head">
+                                    <th>№</th>
+                                    <th>Dst Port</th>
+                                    <th>Timestamp</th>
+                                    <th>Flow Duration</th>
+                                    <th>Tot Fwd Pkts</th>
+                                    <th>True Result</th>
+                                    <th>ANN Result</th>
+                                </tr>
+                                {% for i in range(0, length) %}
+                                    <tr class="predict">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data[['Dst Port']].iloc[i].values[0]}}</td>
+                                        <td>{{data[['Timestamp']].iloc[i].values[0]}}</td>
+                                        <td>{{data[['Flow Duration']].iloc[i].values[0]}}</td>
+                                        <td>{{data[['Tot Fwd Pkts']].iloc[i].values[0]}}</td>
+                                        <td>{{attacks[data[['Label']].iloc[i].values[0]]}}</td>
+                                        {% if predictions[i] != 0 %}
+                                            <td style="color: red;">{{attacks[predictions[i]]}}</td>
+                                        {% else %}
+                                            <td style="color: green;">{{attacks[predictions[i]]}}</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <a href="data/result/dataframe.csv" download="dataframe.csv"><button class="btn btn-primary btn-lg">Сохранить</button></a>
+                    </div>
+                    
+                    {% endif %}
                 </div>
             </div>
         </div>
     </section>
-    {% if success %}
+    
         <style>.loader {
             display: none;
-        }</style>
-        <section id="results" class="results-section">
-            <div class="container">
-                <caption><b>Результат классификации</b></caption>
-                <table class="classification_table">
-                    <tr class="predict_head">
-                        <th>№</th>
-                        <th>Dst Port</th>
-                        <th>Timestamp</th>
-                        <th>Flow Duration</th>
-                        <th>Tot Fwd Pkts</th>
-                        <th>Result</th>
-                    </tr>
-                    {% for i in range(0, length) %}
-                        <tr class="predict">
-                            <td>{{i+1}}</td>
-                            <td>{{data[['Dst Port']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Timestamp']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Flow Duration']].iloc[i].values[0]}}</td>
-                            <td>{{data[['Tot Fwd Pkts']].iloc[i].values[0]}}</td>
-                            {% if predictions[i] != 0 %}
-                                <td style="color: red;">{{attacks[predictions[i]]}}</td>
-                            {% else %}
-                                <td style="color: green;">{{attacks[predictions[i]]}}</td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-        </section>
-    {% endif %}
+        }</style>>
+    
     <footer>
         <div class="container">
             <ul class="social-icons">
