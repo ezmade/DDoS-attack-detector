@@ -72,8 +72,8 @@ def MLP(sizes, activation, solver, max_iter, dataset, label_name):
 
 def predict_ddos_attack(model_name, file):
     model = tf.keras.models.load_model(f'models/{model_name}')
-    data = read_csv(file)
-    features = label_encoding(data.drop(columns='Label'))
+    data = read_csv(file).drop(columns='Label')
+    features = label_encoding(data)
     features.replace([np.inf, -np.inf], np.nan, inplace=True)
     for col in features.select_dtypes(include=np.number):
         features[col] = features[col].fillna(features[col].median())
@@ -84,5 +84,5 @@ def predict_ddos_attack(model_name, file):
         df['Label'] = prediction
         df.to_csv('data/result/dataframe.csv', index=False)
     except:
-        print('bad')
+        print('Cannot save dataframe.')
     return data, prediction

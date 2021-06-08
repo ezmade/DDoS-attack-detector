@@ -326,6 +326,12 @@ footer {
 
 
 @media screen and (max-width: 770px){
+
+    .content {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
     .title {
         font-size: 3.5rem;
     }
@@ -342,6 +348,12 @@ footer {
 }
 
 @media screen and (max-width: 338px){
+
+    .content {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
     .title {
         font-size: 2.7rem;
     }

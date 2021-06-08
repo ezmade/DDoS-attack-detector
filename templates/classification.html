@@ -84,8 +84,7 @@
                                     <th>Timestamp</th>
                                     <th>Flow Duration</th>
                                     <th>Tot Fwd Pkts</th>
-                                    <th>True Result</th>
-                                    <th>ANN Result</th>
+                                    <th>Тип трафика</th>
                                 </tr>
                                 {% for i in range(0, length) %}
                                     <tr class="predict">
@@ -94,7 +93,6 @@
                                         <td>{{data[['Timestamp']].iloc[i].values[0]}}</td>
                                         <td>{{data[['Flow Duration']].iloc[i].values[0]}}</td>
                                         <td>{{data[['Tot Fwd Pkts']].iloc[i].values[0]}}</td>
-                                        <td>{{attacks[data[['Label']].iloc[i].values[0]]}}</td>
                                         {% if predictions[i] != 0 %}
                                             <td style="color: red;">{{attacks[predictions[i]]}}</td>
                                         {% else %}
